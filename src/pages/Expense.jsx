@@ -63,7 +63,7 @@ function Expense() {
     useEffect(() => {
         const timer = setTimeout(() => {
             fetchExpense(searchCategory, month);
-        }, 500);
+        }, 200);
         return () => clearTimeout(timer);
     }, [searchCategory, month]);
 
@@ -284,12 +284,12 @@ function Expense() {
                         {/* Table Header */}
                         <thead className="bg-gray-100 dark:bg-slate-800">
                             <tr>
-                                <th scope="col" className="px-6 py-4">Date</th>
-                                <th scope="col" className="px-6 py-4">Type</th>
-                                <th scope="col" className="px-6 py-4">Category</th>
-                                <th scope="col" className="px-6 py-4">Description</th>
-                                <th scope="col" className="px-6 py-4">Amount</th>
-                                <th scope="col" className="px-6 py-4">Action</th>
+                                <th scope="col" className="text-gray-300 px-6 py-4">Date</th>
+                                <th scope="col" className="text-gray-300 px-6 py-4">Type</th>
+                                <th scope="col" className="text-gray-300 px-6 py-4">Category</th>
+                                <th scope="col" className="text-gray-300 px-6 py-4">Description</th>
+                                <th scope="col" className="text-gray-300 px-6 py-4">Amount</th>
+                                <th scope="col" className="text-gray-300 px-6 py-4">Action</th>
                             </tr>
                         </thead>
 
@@ -333,7 +333,7 @@ function Expense() {
                             ) : (
                                 /* Empty State */
                                 <tr>
-                                    <td colSpan="6" className="px-6 py-10 text-center text-sm text-slate-400">
+                                    <td className="p-6 text-sm text-slate-400">
                                         No Expense found.
                                     </td>
                                 </tr>

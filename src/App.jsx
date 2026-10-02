@@ -42,7 +42,11 @@ function App() {
         <Route path="*" element={<NotFound />} />
 
       </Routes>
-      <ToastContainer />
+      <ToastContainer
+        position="bottom-right"
+        autoClose={2000}
+        closeButton={false}
+      />
     </>
   )
 }

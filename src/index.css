@@ -30,3 +30,13 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #222;
 }
+
+.recharts-wrapper,
+.recharts-wrapper:focus,
+.recharts-wrapper:focus-visible,
+.recharts-wrapper *,
+.recharts-surface,
+.recharts-surface:focus,
+.recharts-surface:focus-visible {
+  outline: none !important;
+}

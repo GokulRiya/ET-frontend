@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react"
 import { getMonthlyReport } from "../services/reportService"
 import { toast } from "react-toastify"
-import { BsCalendar2MonthFill  } from "react-icons/bs"
+import { BsCalendar2MonthFill } from "react-icons/bs"
 
 function MonthlyReport() {
 
@@ -41,7 +41,7 @@ function MonthlyReport() {
     useEffect(() => {
         const timer = setTimeout(() => {
             fetchReport();
-        }, 500);
+        }, 200);
         return () => clearTimeout(timer);
     }, [fetchReport]);
 
@@ -60,7 +60,7 @@ function MonthlyReport() {
                 </div>
 
                 <div className="relative w-full sm:w-64">
-                    <BsCalendar2MonthFill  size={19} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+                    <BsCalendar2MonthFill size={19} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
                     <input type="month"
                         value={month}
                         onChange={(e) => setMonth(e.target.value)}
@@ -134,7 +134,7 @@ function MonthlyReport() {
                         </div>
 
                         {report.categoryData.length === 0 ? (
-                            <div className="py-8 text-center text-sm text-slate-400">
+                            <div className="text-sm text-slate-400">
                                 No expense data found for this month.
                             </div>
                         ) : (
@@ -177,10 +177,7 @@ function MonthlyReport() {
                                 <tbody className="divide-y divide-slate-100">
                                     {report.expenses.length === 0 ? (
                                         <tr>
-                                            <td
-                                                colSpan="5"
-                                                className="py-12 text-center text-sm text-slate-400"
-                                            >
+                                            <td className="p-6 text-sm text-slate-400">
                                                 No expenses found
                                             </td>
                                         </tr>

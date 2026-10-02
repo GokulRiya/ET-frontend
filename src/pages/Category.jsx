@@ -33,7 +33,7 @@ function Category() {
     useEffect(() => {
         const timer = setTimeout(() => {
             fetchCategory(searchCategory);
-        }, 500); // Debounce search requests
+        }, 200); // Debounce search requests
 
         return () => {
             clearTimeout(timer);
@@ -185,9 +185,9 @@ function Category() {
                         {/* Table Header */}
                         <thead className="bg-gray-100 dark:bg-slate-800">
                             <tr>
-                                <th scope="col" className="px-6 py-4">Category</th>
-                                <th scope="col" className="px-6 py-4">Type</th>
-                                <th scope="col" className="px-6 py-4 text-center">Action</th>
+                                <th scope="col" className="text-gray-300 px-6 py-4">Category</th>
+                                <th scope="col" className="text-gray-300 px-6 py-4">Type</th>
+                                <th scope="col" className="text-gray-300 px-6 py-4 text-center">Action</th>
                             </tr>
                         </thead>
 
@@ -221,7 +221,7 @@ function Category() {
                             ) : (
                                 /* Empty State */
                                 <tr>
-                                    <td colSpan="4" className="px-6 py-10 text-center text-sm text-slate-400">
+                                    <td className="p-6 text-sm text-slate-400">
                                         No Category found.
                                     </td>
                                 </tr>

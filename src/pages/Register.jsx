@@ -8,12 +8,15 @@ import { Link } from "react-router-dom"
 import { register } from "../services/authService"
 import { toast } from "react-toastify"
 import logo from "../../public/assets/icon-192.webp"
+import { useNavigate } from "react-router-dom"
 
 function Register() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,6 +32,7 @@ function Register() {
             setName("");
             setEmail("");
             setPassword("");
+            navigate("/login");
         } catch (error) {
             toast.error(error.response?.data?.message || error.message || 'Registration failed!');
         }
