@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+* {
+    font-family: "Be Vietnam Pro", "Be Vietnam Pro Placeholder", sans-serif
+}
+
+:root {
+    --primary-color: #102f4e;
+    --secondary-color: #c3936bfc;
+}
+
+/* Scrollbar width */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+/* Scrollbar track */
+::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+/* Scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background: #222;
+  border-radius: 10px;
+}
+
+/* Hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #222;
+}
