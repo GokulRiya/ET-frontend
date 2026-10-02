@@ -7,7 +7,7 @@ import {
 import { Link } from "react-router-dom"
 import { register } from "../services/authService"
 import { toast } from "react-toastify"
-import logo from "../assets/violet_bg.png"
+import logo from "../../public/assets/icon-192.webp"
 
 function Register() {
     const [name, setName] = useState("");

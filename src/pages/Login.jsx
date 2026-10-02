@@ -1,5 +1,5 @@
 import { useState } from "react"
-import logo from "../assets/violet_bg.png"
+import logo from "../../public/assets/icon-192.webp"
 import {
     BsFillEnvelopeFill,
     BsEyeSlashFill, BsEye,

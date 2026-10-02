@@ -66,7 +66,7 @@ function Layout() {
                 {/* Logo */}
                 <div className="h-16 flex items-center justify-start px-6 gap-3 border-b border-white/10">
                     <img
-                        src={"/assets/icon-192.png"}
+                        src={"/assets/icon-192.webp"}
                         alt="logo"
                         className="h-10 w-10 object-contain rounded-xl bg-white shadow-sm transition-transform hover:scale-105 duration-200"
                     />

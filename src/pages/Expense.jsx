@@ -319,7 +319,7 @@ function Expense() {
                                         </td>
 
                                         <td className="whitespace-nowrap px-6 py-2.5 flex gap-4">
-                                            <RiEdit2Fill onClick={() => handleEdit(value)} size={19} title="Edit" className="cursor-pointer text-purple-500 hover:text-purple-700" />
+                                            <RiEdit2Fill onClick={() => handleEdit(value)} size={19} title="Edit" className="cursor-pointer text-indigo-500 hover:text-indigo-700" />
                                             <MdDelete onClick={() => handleDelete(value._id)} size={19} title="Delete" className="cursor-pointer text-red-500 hover:text-red-700" />
                                         </td>
                                     </tr>

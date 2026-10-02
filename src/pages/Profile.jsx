@@ -9,7 +9,7 @@ function Profile() {
             <div className="flex items-center gap-3 min-w-0">
                 {/* Avatar with Online Status Indicator */}
                 <div className="relative flex-shrink-0">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-500 flex items-center justify-center font-semibold text-white shadow-inner text-sm tracking-wider ring-1 ring-white/20">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-indigo-500 flex items-center justify-center font-semibold text-white shadow-inner text-sm tracking-wider ring-1 ring-white/20">
                         {/* {initials} */}
                     </div>
                     {/* Active status pulse */}
