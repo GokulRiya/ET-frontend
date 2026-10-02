@@ -33,7 +33,7 @@ function Category() {
     useEffect(() => {
         const timer = setTimeout(() => {
             fetchCategory(searchCategory);
-        }, 200); // Debounce search requests
+        }, 500); // Debounce search requests
 
         return () => {
             clearTimeout(timer);
@@ -185,9 +185,9 @@ function Category() {
                         {/* Table Header */}
                         <thead className="bg-gray-100 dark:bg-slate-800">
                             <tr>
-                                <th scope="col" className="text-gray-300 px-6 py-4">Category</th>
-                                <th scope="col" className="text-gray-300 px-6 py-4">Type</th>
-                                <th scope="col" className="text-gray-300 px-6 py-4 text-center">Action</th>
+                                <th scope="col" className="dark:text-gray-300 px-6 py-4">Category</th>
+                                <th scope="col" className="dark:text-gray-300 px-6 py-4">Type</th>
+                                <th scope="col" className="dark:text-gray-300 px-6 py-4 text-center">Action</th>
                             </tr>
                         </thead>
 
@@ -195,7 +195,7 @@ function Category() {
                         <tbody className="divide-y divide-slate-200 bg-white dark:divide-slate-800 dark:bg-slate-900">
                             {loading ? (
                                 <tr>
-                                    <td colSpan="3" className="px-6 py-10 text-center">
+                                    <td colSpan="3" className="p-6 text-center">
                                         <div className="flex items-center justify-center gap-2 text-sm text-slate-500" role="status">
                                             <span className="h-5 w-5 animate-spin rounded-full border-2 border-slate-300 border-t-indigo-600" aria-hidden="true" />
                                             <span>Loading categories...</span>

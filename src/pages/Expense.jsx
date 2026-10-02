@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import { FaPlusCircle, FaRupeeSign, FaSearch } from "react-icons/fa"
 import { RiEdit2Fill } from "react-icons/ri"
 import { MdDelete, MdDateRange } from "react-icons/md"
-import { IoCalendarNumber } from "react-icons/io5"
+import { BsCalendar2MonthFill } from "react-icons/bs"
 import { getCategorys } from "../services/categoryService"
 
 function Expense() {
@@ -63,7 +63,7 @@ function Expense() {
     useEffect(() => {
         const timer = setTimeout(() => {
             fetchExpense(searchCategory, month);
-        }, 200);
+        }, 500);
         return () => clearTimeout(timer);
     }, [searchCategory, month]);
 
@@ -138,7 +138,7 @@ function Expense() {
                 {/* Button to trigger Add Category Modal */}
                 <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
                     <div className="relative">
-                        <IoCalendarNumber size={19} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+                        <BsCalendar2MonthFill size={19} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
                         <input type="month"
                             value={month}
                             onChange={(e) => setMonth(e.target.value)}
@@ -284,12 +284,12 @@ function Expense() {
                         {/* Table Header */}
                         <thead className="bg-gray-100 dark:bg-slate-800">
                             <tr>
-                                <th scope="col" className="text-gray-300 px-6 py-4">Date</th>
-                                <th scope="col" className="text-gray-300 px-6 py-4">Type</th>
-                                <th scope="col" className="text-gray-300 px-6 py-4">Category</th>
-                                <th scope="col" className="text-gray-300 px-6 py-4">Description</th>
-                                <th scope="col" className="text-gray-300 px-6 py-4">Amount</th>
-                                <th scope="col" className="text-gray-300 px-6 py-4">Action</th>
+                                <th scope="col" className="dark:text-gray-300 px-6 py-4">Date</th>
+                                <th scope="col" className="dark:text-gray-300 px-6 py-4">Type</th>
+                                <th scope="col" className="dark:text-gray-300 px-6 py-4">Category</th>
+                                <th scope="col" className="dark:text-gray-300 px-6 py-4">Description</th>
+                                <th scope="col" className="dark:text-gray-300 px-6 py-4">Amount</th>
+                                <th scope="col" className="dark:text-gray-300 px-6 py-4">Action</th>
                             </tr>
                         </thead>
 
@@ -297,7 +297,7 @@ function Expense() {
                         <tbody className="divide-y divide-slate-200 bg-white dark:divide-slate-800 dark:bg-slate-900">
                             {loading ? (
                                 <tr>
-                                    <td colSpan="6" className="px-6 py-10 text-center">
+                                    <td colSpan="6" className="p-6 text-center">
                                         <div className="flex items-center justify-center gap-2 text-sm text-slate-500" role="status">
                                             <span className="h-5 w-5 animate-spin rounded-full border-2 border-slate-300 border-t-indigo-600" aria-hidden="true" />
                                             <span>Loading expenses...</span>

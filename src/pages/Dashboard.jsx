@@ -75,7 +75,7 @@ function Dashboard() {
     useEffect(() => {
         const timer = setTimeout(() => {
             fetchExpense(month);
-        }, 200);
+        }, 500);
         return () => clearTimeout(timer);
     }, [month]);
 
@@ -108,7 +108,7 @@ function Dashboard() {
                     </header>
 
                     {loading ? (
-                        <div className="flex min-h-64 items-center justify-center gap-2 text-sm text-slate-500" role="status">
+                        <div className="flex min-h-48 items-center justify-center gap-2 text-sm text-slate-500" role="status">
                             <span className="h-5 w-5 animate-spin rounded-full border-2 border-slate-300 border-t-indigo-600" aria-hidden="true" />
                             <span>Loading dashboard...</span>
                         </div>

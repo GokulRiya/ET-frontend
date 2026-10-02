@@ -41,7 +41,7 @@ function MonthlyReport() {
     useEffect(() => {
         const timer = setTimeout(() => {
             fetchReport();
-        }, 200);
+        }, 500);
         return () => clearTimeout(timer);
     }, [fetchReport]);
 
@@ -77,7 +77,7 @@ function MonthlyReport() {
             </div>
 
             {loading ? (
-                <div className="flex min-h-80 flex-col items-center justify-center gap-3 text-sm text-slate-500 bg-white/60 backdrop-blur-sm rounded-2xl border border-slate-200/60 shadow-sm" role="status">
+                <div className="flex min-h-80 flex-col items-center justify-center gap-3 text-sm text-slate-500" role="status">
                     <span className="h-7 w-7 animate-spin rounded-full border-2 border-slate-200 border-t-indigo-600" aria-hidden="true" />
                     <span className="font-medium tracking-wide">Loading report...</span>
                 </div>
@@ -86,7 +86,7 @@ function MonthlyReport() {
                     {/* Summary Cards */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                         {/* Income Card */}
-                        <div className="relative overflow-hidden bg-white rounded-2xl p-6 border border-slate-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] transition-all hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)]">
+                        <div className="relative overflow-hidden bg-white rounded-2xl p-6 border-1 border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] transition-all hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)]">
                             <div className="flex items-center justify-between">
                                 <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                                     Total Income
@@ -99,7 +99,7 @@ function MonthlyReport() {
                         </div>
 
                         {/* Expense Card */}
-                        <div className="relative overflow-hidden bg-white rounded-2xl p-6 border border-slate-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] transition-all hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)]">
+                        <div className="relative overflow-hidden bg-white rounded-2xl p-6 border-1 border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] transition-all hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)]">
                             <div className="flex items-center justify-between">
                                 <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                                     Total Expense
@@ -112,7 +112,7 @@ function MonthlyReport() {
                         </div>
 
                         {/* Balance Card */}
-                        <div className="relative overflow-hidden bg-white rounded-2xl p-6 border border-slate-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] transition-all hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)]">
+                        <div className="relative overflow-hidden bg-white rounded-2xl p-6 border-1 border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] transition-all hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)]">
                             <div className="flex items-center justify-between">
                                 <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                                     Net Balance
@@ -126,7 +126,7 @@ function MonthlyReport() {
                     </div>
 
                     {/* Category Summary */}
-                    <div className="bg-white rounded-2xl border border-slate-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] p-6 md:p-7">
+                    <div className="bg-white rounded-2xl border-1 border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] p-6 md:p-7">
                         <div className="mb-4 pb-3 border-b border-slate-100">
                             <h2 className="text-base font-semibold text-slate-900 tracking-tight">
                                 Expense by Category
@@ -157,7 +157,7 @@ function MonthlyReport() {
                     </div>
 
                     {/* Expenses Table */}
-                    <div className="bg-white rounded-2xl border border-slate-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] overflow-hidden">
+                    <div className="bg-white rounded-2xl border-1 border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] overflow-hidden">
                         <div className="p-6 border-b border-slate-100 flex items-center justify-between">
                             <h2 className="text-base font-semibold text-slate-900 tracking-tight">
                                 Monthly Expenses
@@ -187,23 +187,23 @@ function MonthlyReport() {
                                                 key={item._id}
                                                 className="hover:bg-slate-50/60 transition-colors duration-150"
                                             >
-                                                <td className="py-4 px-6 text-slate-500 text-xs font-medium tabular-nums">
+                                                <td className="py-2.5 px-6 text-slate-500 text-xs font-medium tabular-nums">
                                                     {new Date(
                                                         item.date
                                                     ).toLocaleDateString("en-IN")}
                                                 </td>
-                                                <td className="py-4 px-6 font-medium text-slate-800">
+                                                <td className="py-2.5 px-6 font-medium text-slate-800">
                                                     {item.categoryId?.categoryName || "-"}
                                                 </td>
-                                                <td className="py-4 px-6 capitalize">
+                                                <td className="py-2.5 px-6 capitalize">
                                                     <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-slate-100 text-slate-700">
                                                         {item.type}
                                                     </span>
                                                 </td>
-                                                <td className="py-4 px-6 text-slate-500 max-w-xs truncate">
+                                                <td className="py-2.5 px-6 text-slate-500 max-w-xs truncate">
                                                     {item.description || "-"}
                                                 </td>
-                                                <td className="py-4 px-6 text-right font-semibold text-slate-900 tabular-nums">
+                                                <td className="py-2.5 px-6 text-right font-semibold text-slate-900 tabular-nums">
                                                     {int(item.amount)}
                                                 </td>
                                             </tr>
