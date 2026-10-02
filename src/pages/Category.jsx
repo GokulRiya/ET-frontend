@@ -31,7 +31,6 @@ function Category() {
     };
 
     useEffect(() => {
-        setLoading(true);
         const timer = setTimeout(() => {
             fetchCategory(searchCategory);
         }, 500); // Debounce search requests

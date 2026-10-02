@@ -2,7 +2,6 @@ import StatCard from "../components/StateCard"
 import {
     BarChart,
     Bar,
-    XAxis,
     YAxis,
     Tooltip,
     ResponsiveContainer,
@@ -45,7 +44,7 @@ function Dashboard() {
     const [totalExpense, setTotalExpense] = useState(0);
     const [pieData, setpieData] = useState([]);
     const [monthlyData, setMonthlyData] = useState([]);
-    const [month, setMonth] = useState(new Date().toISOString().slice(0, 7));
+    const [month] = useState(new Date().toISOString().slice(0, 7));
 
 
     // Fetch expense
@@ -73,7 +72,6 @@ function Dashboard() {
     };
 
     useEffect(() => {
-        setLoading(true);
         const timer = setTimeout(() => {
             fetchExpense(month);
         }, 500);

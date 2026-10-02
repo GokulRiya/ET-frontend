@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import { getMonthlyReport } from "../services/reportService"
 import { toast } from "react-toastify"
 
@@ -19,7 +19,7 @@ function MonthlyReport() {
         return "₹" + Number(number).toLocaleString("en-IN");
     };
 
-    const fetchReport = async () => {
+    const fetchReport = useCallback(async () => {
         setLoading(true);
         try {
             const response = await getMonthlyReport(month);
@@ -35,14 +35,14 @@ function MonthlyReport() {
         } finally {
             setLoading(false);
         }
-    };
+    }, [month]);
 
     useEffect(() => {
         const timer = setTimeout(() => {
             fetchReport();
         }, 500);
         return () => clearTimeout(timer);
-    }, [month]);
+    }, [fetchReport]);
 
     return (
      <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-8 bg-slate-50/50 min-h-screen">

@@ -1,4 +1,3 @@
-import { useContext } from "react"
 import api from "./api"
 
 export const register = async (data) => {

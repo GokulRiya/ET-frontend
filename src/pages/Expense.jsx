@@ -60,11 +60,11 @@ function Expense() {
         }
     };
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         fetchCategory();
     }, []);
 
     useEffect(() => {
-         setLoading(true);
         const timer = setTimeout(() => {
             fetchExpense(searchCategory, month);
         }, 500);
