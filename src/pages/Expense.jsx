@@ -59,10 +59,6 @@ function Expense() {
             toast.error(error.response?.data?.message || error.message || 'Fetch failed!');
         }
     };
-    useEffect(() => {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        fetchCategory();
-    }, []);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -150,7 +146,11 @@ function Expense() {
                             required
                             min={minMonth}
                             max={today.toISOString().slice(0, 7)}
-                            className="w-full rounded-lg border border-gray-300 px-4 py-3 pl-10 pr-4 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100" />
+                            className="block
+                            w-full
+                            min-w-0
+                            max-w-full
+                            appearance-none rounded-lg border border-gray-300 px-4 py-3 pl-10 pr-4 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100" />
                     </div>
                     <div className="relative">
                         <FaSearch size={19} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
@@ -164,6 +164,7 @@ function Expense() {
                 </div>
                 <button
                     onClick={() => {
+                        fetchCategory();
                         setEditExpense(null);
                         setNewExpense({
                             categoryId: "",
@@ -183,7 +184,7 @@ function Expense() {
             {/* Modal Overlay */}
             {showModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
-                    <div className="w-full max-w-md bg-white rounded-xl shadow-xl p-6 border border-slate-100">
+                    <div className="w-full max-w-md min-w-0 bg-white rounded-xl shadow-xl p-6 border border-slate-100">
                         <h2 className="text-xl font-bold text-slate-900 mb-4">{editExpense ? 'Edit Expense' : 'New Expense'}</h2>
                         <form onSubmit={handleSubmit} className="space-y-4">
 
@@ -242,7 +243,12 @@ function Expense() {
                                         min={new Date(today.getFullYear(), today.getMonth() - 2, 2).toISOString().split("T")[0]}
                                         max={new Date().toISOString().split("T")[0]}
                                         required
-                                        className="w-full rounded-lg border border-gray-300 px-4 py-3 pl-10 pr-4 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100" />
+                                        className=" block
+                            w-full
+                            min-w-0
+                            max-w-full
+                            appearance-none
+                             rounded-lg border border-gray-300 px-4 py-3 pl-10 pr-4 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100" />
                                 </div>
                             </div>
 
