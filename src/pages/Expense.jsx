@@ -146,11 +146,7 @@ function Expense() {
                             required
                             min={minMonth}
                             max={today.toISOString().slice(0, 7)}
-                            className="block
-                            w-full
-                            min-w-0
-                            max-w-full
-                            appearance-none rounded-lg border border-gray-300 px-4 py-3 pl-10 pr-4 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100" />
+                            className="w-full rounded-lg border border-gray-300 px-4 py-3 pl-10 pr-4 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100" />
                     </div>
                     <div className="relative">
                         <FaSearch size={19} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
