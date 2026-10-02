@@ -15,7 +15,7 @@ import { useEffect, useState } from "react"
 import { getDashboardData } from "../services/expenseService"
 import { toast } from "react-toastify"
 
-const inr = (n) => "₹" + n.toLocaleString("en-IN");
+const inr = (n) => "₹ " + n.toLocaleString("en-IN");
 const chartColors = ["#0f766e", "#f97316", "#2563eb", "#e11d48", "#ca8a04", "#0891b2", "#0121b2", "#0891d2", "#0885b2"];
 
 const ChartTooltip = ({ active, payload }) => {

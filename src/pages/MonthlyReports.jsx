@@ -17,7 +17,7 @@ function MonthlyReport() {
     });
 
     const int = (number) => {
-        return "₹" + Number(number).toLocaleString("en-IN");
+        return "₹ " + Number(number).toLocaleString("en-IN");
     };
     const today = new Date();
     const fetchReport = useCallback(async () => {
