@@ -64,12 +64,14 @@ function Layout() {
             <aside className={`fixed left-0 top-0 bottom-0 z-50 bg-(--primary-color) flex w-64 flex-col border border-black/10 text-white shadow-2xl transition-transform duration-200 md:translate-x-0 ${showNavbar ? "translate-x-0" : "translate-x-[-110%]"}`}>
 
                 {/* Logo */}
-                <div className="h-16 flex items-center px-6 border-b border-white/10">
-                    <img
-                        src={logo}
-                        alt="logo"
-                        className="w-11 h-11 object-contain rounded-2xl p-1 bg-white ring-1 ring-white/20 shadow-sm mx-auto transition-transform hover:scale-105 duration-200"
-                    />
+                <div className="h-16 flex items-center justify-center px-4 border-b border-white/10">
+                    <div className="h-12 w-auto overflow-hidden rounded-sm bg-white flex items-center justify-center">
+                        <img
+                            src={"/assets/logo-white-bg.png"}
+                            alt="logo"
+                            className="h-full w-auto object-contain"
+                        />
+                    </div>
                 </div>
 
                 {/* Navigation */}
