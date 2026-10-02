@@ -64,14 +64,13 @@ function Layout() {
             <aside className={`fixed left-0 top-0 bottom-0 z-50 bg-(--primary-color) flex w-64 flex-col border border-black/10 text-white shadow-2xl transition-transform duration-200 md:translate-x-0 ${showNavbar ? "translate-x-0" : "translate-x-[-110%]"}`}>
 
                 {/* Logo */}
-                <div className="h-16 flex items-center justify-center px-4 border-b border-white/10">
-                    <div className="h-12 w-auto overflow-hidden rounded-sm bg-white flex items-center justify-center">
-                        <img
-                            src={"/assets/logo-white-bg.png"}
-                            alt="logo"
-                            className="h-full w-auto object-contain"
-                        />
-                    </div>
+                <div className="h-16 flex items-center justify-start px-6 gap-3 border-b border-white/10">
+                    <img
+                        src={"/assets/icon-192.png"}
+                        alt="logo"
+                        className="h-10 w-10 object-contain rounded-xl bg-white shadow-sm transition-transform hover:scale-105 duration-200"
+                    />
+                    <span className="text-md font-bold tracking-tight text-white">Expense Tracker</span>
                 </div>
 
                 {/* Navigation */}
