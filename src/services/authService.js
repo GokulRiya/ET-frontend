@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import api from "./api";
+import { useContext } from "react"
+import api from "./api"
 
 export const register = async (data) => {
     const response = await api.post('/auth/register', data)

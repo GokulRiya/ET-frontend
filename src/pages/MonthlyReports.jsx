@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { getMonthlyReport } from "../services/reportService";
-import { toast } from "react-toastify";
+import { useEffect, useState } from "react"
+import { getMonthlyReport } from "../services/reportService"
+import { toast } from "react-toastify"
 
 function MonthlyReport() {
 

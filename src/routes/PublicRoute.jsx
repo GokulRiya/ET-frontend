@@ -1,5 +1,5 @@
-import { isAuthenticated } from "../services/authService";
-import { Navigate, Outlet } from "react-router-dom";
+import { isAuthenticated } from "../services/authService"
+import { Navigate, Outlet } from "react-router-dom"
 
 function PublicRoute() {
     if (isAuthenticated()) {

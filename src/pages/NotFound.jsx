@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 
 function NotFound() {
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
             <div className="text-center">
-                <h1 className="text-7xl font-extrabold text-[var(--primary-color)]">
+                <h1 className="text-7xl font-extrabold text-[--primary-color]">
                     404
                 </h1>
 
@@ -18,7 +18,7 @@ function NotFound() {
 
                 <Link
                     to="/dashboard"
-                    className="mt-6 inline-block rounded-lg bg-[var(--primary-color)] cursor-pointer px-6 py-3 text-sm font-semibold text-white hover:opacity-90"
+                    className="mt-6 inline-block rounded-lg bg-[--primary-color] cursor-pointer px-6 py-3 text-sm font-semibold text-white hover:opacity-90"
                 >
                     Go to Dashboard
                 </Link>

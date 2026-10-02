@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "axios"
 
 const api = axios.create({
     baseURL: "http://localhost:5000/api",
@@ -26,7 +26,7 @@ api.interceptors.response.use(
         if (error.response?.status === 401 && !isLoginRequest) {
             localStorage.removeItem("token");
 
-            window.location.href = "/unauthorized";
+            window.location.href = "/unauthorized"
         }
 
         return Promise.reject(error);
