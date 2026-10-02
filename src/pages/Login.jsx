@@ -101,9 +101,9 @@ function Login() {
                                     onClick={() =>
                                         setShowPassword(!showPassword)
                                     }
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-sm font-medium text-(--primary-color) hover:text-(--primary-color)"
+                                    className="absolute cursor-pointer right-3 top-1/2 -translate-y-1/2 text-sm font-medium text-(--primary-color) hover:text-(--primary-color)"
                                 >
-                                    {showPassword ? <BsEyeSlashFill /> : <BsEye />}
+                                    {showPassword ? <BsEye /> : <BsEyeSlashFill />}
                                 </button>
                             </div>
                         </div>
