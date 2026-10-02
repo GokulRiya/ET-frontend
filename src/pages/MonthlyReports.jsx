@@ -46,7 +46,7 @@ function MonthlyReport() {
     }, [fetchReport]);
 
     return (
-        <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-8 bg-slate-50/50 min-h-screen">
+        <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-4 bg-slate-50/50 min-h-screen">
 
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2">
@@ -177,7 +177,7 @@ function MonthlyReport() {
                                 <tbody className="divide-y divide-slate-100">
                                     {report.expenses.length === 0 ? (
                                         <tr>
-                                            <td className="p-6 text-sm text-slate-400">
+                                            <td colSpan="5" className="p-6 text-sm text-slate-400">
                                                 No expenses found
                                             </td>
                                         </tr>
