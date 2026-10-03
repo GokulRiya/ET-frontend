@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 * {
-    font-family: "Be Vietnam Pro", "Be Vietnam Pro Placeholder", sans-serif
+  font-family: "Be Vietnam Pro", "Be Vietnam Pro Placeholder", sans-serif
 }
 
 :root {
-    --primary-color: #102f4e;
-    --secondary-color: #f5a321;
+  --primary-color: #102f4e;
+  --secondary-color: #f5a321;
 }
 
 /* Scrollbar width */
@@ -39,4 +39,22 @@
 .recharts-surface:focus,
 .recharts-surface:focus-visible {
   outline: none !important;
+}
+
+.overall-bg {
+  position: relative;
+  /* Make sure children sit above the background */
+  z-index: 1;
+}
+
+.overall-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* covers top, right, bottom, left */
+  background-image: url('../public/assets/icon-192.webp');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 500px auto; /* Sets width to 500px and maintains aspect ratio */
+  opacity: 0.1;
+  z-index: -1;
 }

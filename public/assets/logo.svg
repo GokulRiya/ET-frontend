@@ -11,5 +11,5 @@
     <circle cx="46" cy="17" r="4" fill="none" stroke="#102f4e" stroke-width="1.8"/>
   </g>
   </g>
-  <text x="84" y="46" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="30" font-weight="700" letter-spacing="-0.5" fill="#102f4e">Expense Tracker</text>
+  <text x="84" y="46" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="30" font-weight="700" letter-spacing="-0.5" fill="#102f4e">Expense Analytics</text>
 </svg>

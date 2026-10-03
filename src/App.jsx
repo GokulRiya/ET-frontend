@@ -11,11 +11,13 @@ import MonthlyReports from "./pages/MonthlyReports"
 import UnAuthorized from "./pages/UnAuthorized"
 import NotFound from "./pages/NotFound"
 import PublicRoute from "./routes/PublicRoute"
+import ScrollToTop from "./ScrollToTop"
 
 function App() {
 
   return (
     <>
+      <ScrollToTop />
       <Routes>
         {/* Public Routes */}
         <Route element={<PublicRoute />}>

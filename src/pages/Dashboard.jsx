@@ -87,13 +87,13 @@ function Dashboard() {
     const activeBarItem = activeBar !== null ? monthlyData[activeBar] : null;
     const monthlyTotal = monthlyData.reduce((sum, d) => sum + d.value, 0);
     return (
-        <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-8 bg-slate-50/50 min-h-screen">
+        <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-8 bg-slate-50/50 min-h-screen overall-bg">
             <div className="min-h-screen text-slate-800">
                 <div className="space-y-6">
                     <header className="flex flex-col">
                         <div>
                             <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
-                                Expense Tracker
+                                Expense Analytics
                             </h1>
                             <p className="mt-1 text-sm text-slate-500">
                                 Your money at a glance for this month.

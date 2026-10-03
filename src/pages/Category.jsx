@@ -92,7 +92,7 @@ function Category() {
 
     }
     return (
-        <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-8 bg-slate-50/50 min-h-screen">
+        <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-8 bg-slate-50/50 min-h-screen overall-bg">
             {/* Header Section */}
             <div className="mb-4">
                 <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">Category</h1>

@@ -46,7 +46,7 @@ function MonthlyReport() {
     }, [fetchReport]);
 
     return (
-        <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-4 bg-slate-50/50 min-h-screen">
+        <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-4 bg-slate-50/50 min-h-screen overall-bg">
 
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2">

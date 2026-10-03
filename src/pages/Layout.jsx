@@ -1,15 +1,12 @@
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom"
 import { logout } from "../services/authService"
 import { toast } from "react-toastify"
-import {
-    BsGridFill
-} from "react-icons/bs"
+import { BsGridFill } from "react-icons/bs"
 import { MdCategory } from "react-icons/md"
 import { FaRupeeSign, FaSignOutAlt } from "react-icons/fa"
-import { HiMenuAlt1 } from "react-icons/hi"
+import { CgMenuRightAlt } from "react-icons/cg"
 import { HiDocumentChartBar } from "react-icons/hi2"
-import logo from "../assets/violet_bg.png"
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 
 function Layout() {
     const navigate = useNavigate();
@@ -17,6 +14,13 @@ function Layout() {
     const [showNavbar, setShowNavbar] = useState(false);
     const name = localStorage.getItem("name");
     const email = localStorage.getItem("email");
+    const mainContentRef = useRef(null);
+
+    useEffect(() => {
+        if (mainContentRef.current) {
+            mainContentRef.current.scrollTo(0, 0);
+        }
+    }, [navigate]);
 
     const handleLogout = () => {
         logout();
@@ -50,7 +54,7 @@ function Layout() {
     const handleNavbar = () => setShowNavbar((isOpen) => !isOpen);
 
     return (
-        <div className="min-h-screen bg-white flex">
+        <div className="flex h-screen overflow-hidden">
 
             {/* ================= SIDEBAR ================= */}
             {showNavbar && (
@@ -71,7 +75,7 @@ function Layout() {
                             alt="logo"
                             className="h-10 w-10 object-contain rounded-xl bg-white shadow-sm transition-transform hover:scale-105 duration-200"
                         />
-                        <span className="text-md font-bold tracking-tight text-white">Expense Tracker</span>
+                        <span className="text-md font-bold tracking-tight text-white">Expense Analytics</span>
                     </Link>
                 </div>
 
@@ -130,26 +134,28 @@ function Layout() {
 
 
             {/* ================= MAIN ================= */}
-            <main className="ml-0 h-dvh min-h-0 flex-1 overflow-y-auto rounded-2xl md:ml-64">
+            <main ref={mainContentRef} className="ml-0 h-dvh min-h-0 flex-1 overflow-y-auto rounded-2xl md:ml-64">
 
                 {/* Topbar */}
                 <header className="py-2 fixed top-0 right-1 z-30 sm:h-[64px] w-full md:w-[calc(100%-260px)] bg-(--primary-color)
  border border-black/10 shadow-[0_2px_8px_rgba(0,0,0,0.08)] px-3 sm:px-5 lg:px-6 flex items-center justify-between
                 ">
 
-                    <button
-                        type="button"
-                        onClick={handleNavbar}
-                        className="text-white md:hidden cursor-pointer hover:bg-amber-50/10 p-3 rounded-full transition"
-                    >
-                        <HiMenuAlt1 size={24} />
-                    </button>
 
-                    <div>
+                    <div className="flex">
+                        <Link to="/dashboard" onClick={() => setShowNavbar(false)} className="block sm:hidden flex items-center gap-3">
+                            <img
+                                src={"/assets/icon-192.webp"}
+                                alt="logo"
+                                className="h-8 w-8 object-contain rounded-xl bg-white shadow-sm transition-transform hover:scale-105 duration-200"
+                            />
+                            <span className="text-md font-bold tracking-tight text-white">Expense Analytics</span>
+                        </Link>
                     </div>
 
                     {/* User */}
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-1">
+
 
                         <div className="hidden sm:block text-left">
                             <p className="text-sm font-semibold text-white">
@@ -171,7 +177,13 @@ function Layout() {
                                 {name.charAt(0)}
                             </p>
                         </div>
-
+                        <button
+                            type="button"
+                            onClick={handleNavbar}
+                            className="text-white md:hidden cursor-pointer hover:bg-amber-50/10 p-3 rounded-full transition"
+                        >
+                            <CgMenuRightAlt size={24} />
+                        </button>
                     </div>
 
                 </header>
