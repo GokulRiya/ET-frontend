@@ -137,7 +137,7 @@ function Layout() {
             <main ref={mainContentRef} className="ml-0 h-dvh min-h-0 flex-1 overflow-y-auto rounded-2xl md:ml-64">
 
                 {/* Topbar */}
-                <header className="fixed top-0 right-0 z-30 flex h-14 sm:h-16 w-full md:w-[calc(100%-16rem)] items-center justify-between border-b border-black/10 bg-[var(--primary-color)] px-3 shadow-[0_2px_8px_rgba(0,0,0,0.08)] sm:px-5 lg:px-6">
+                <header className="fixed top-0 right-0 z-30 flex h-14 sm:h-16 w-full md:w-[calc(100%-16rem)] items-center justify-between border-b border-black/10 bg-[var(--primary-color)] px-4 shadow-[0_2px_8px_rgba(0,0,0,0.08)] sm:px-5 lg:px-6">
                     {/* Mobile Brand / Logo */}
                     <div className="flex items-center">
                         <Link

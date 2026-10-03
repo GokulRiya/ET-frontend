@@ -49,7 +49,7 @@
 
 .overall-bg::before {
   content: "";
-  position: absolute;
+  position: fixed;
   inset: 0; /* covers top, right, bottom, left */
   background-image: url('../public/assets/icon-192.webp');
   background-position: center;
