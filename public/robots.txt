@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# If you have a sitemap, uncomment and provide the URL:
+# Sitemap: https://expenslytic.vercel.app/sitemap.xml
