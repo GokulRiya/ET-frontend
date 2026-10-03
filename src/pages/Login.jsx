@@ -98,6 +98,7 @@ function Login() {
 
                                 <button
                                     type="button"
+                                    aria-label="password"
                                     onClick={() =>
                                         setShowPassword(!showPassword)
                                     }
