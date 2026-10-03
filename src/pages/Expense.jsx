@@ -32,13 +32,13 @@ function Expense() {
 
         if (selected > maxMonth) {
             setMonth(maxMonth);
-            toast.info("Future months cannot be selected");
+            toast.warning("Future months cannot be selected");
             return;
         }
 
         if (minMonth && selected < minMonth) {
             setMonth(minMonth);
-            toast.info(`Please select a month after ${minMonth}`);
+            toast.warning("You can only select up to the last 3 months");
             return;
         }
 
