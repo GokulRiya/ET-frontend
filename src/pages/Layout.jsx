@@ -137,55 +137,54 @@ function Layout() {
             <main ref={mainContentRef} className="ml-0 h-dvh min-h-0 flex-1 overflow-y-auto rounded-2xl md:ml-64">
 
                 {/* Topbar */}
-                <header className="py-2 fixed top-0 right-1 z-30 sm:h-[64px] w-full md:w-[calc(100%-260px)] bg-(--primary-color)
- border border-black/10 shadow-[0_2px_8px_rgba(0,0,0,0.08)] px-3 sm:px-5 lg:px-6 flex items-center justify-between
-                ">
-
-
-                    <div className="flex">
-                        <Link to="/dashboard" onClick={() => setShowNavbar(false)} className="block sm:hidden flex items-center gap-3">
+                <header className="fixed top-0 right-0 z-30 flex h-14 sm:h-16 w-full md:w-[calc(100%-16rem)] items-center justify-between border-b border-black/10 bg-[var(--primary-color)] px-3 shadow-[0_2px_8px_rgba(0,0,0,0.08)] sm:px-5 lg:px-6">
+                    {/* Mobile Brand / Logo */}
+                    <div className="flex items-center">
+                        <Link
+                            to="/dashboard"
+                            onClick={() => setShowNavbar(false)}
+                            className="flex sm:hidden items-center gap-3"
+                        >
                             <img
-                                src={"/assets/icon-192.webp"}
+                                src="/assets/icon-192.webp"
                                 alt="logo"
-                                className="h-8 w-8 object-contain rounded-xl bg-white shadow-sm transition-transform hover:scale-105 duration-200"
+                                className="h-8 w-8 rounded-xl bg-white object-contain shadow-sm transition-transform duration-200 hover:scale-105"
                             />
-                            <span className="text-md font-bold tracking-tight text-white">Expense Analytics</span>
+                            <span className="text-md font-bold tracking-tight text-white">
+                                Expense Analytics
+                            </span>
                         </Link>
                     </div>
 
-                    {/* User */}
-                    <div className="flex items-center gap-1">
-
-
-                        <div className="hidden sm:block text-left">
-                            <p className="text-sm font-semibold text-white">
+                    {/* User & Menu */}
+                    <div className="flex items-center gap-2 sm:gap-3">
+                        {/* User Details */}
+                        <div className="hidden sm:block text-right">
+                            <p className="text-sm font-semibold leading-tight text-white">
                                 {name}
                             </p>
-
-                            <p className="text-xs text-white">
+                            <p className="text-xs text-white/80">
                                 {email}
                             </p>
                         </div>
 
-                        <div className="
-                            w-8 h-8
-                            rounded-full
-                            bg-white
-                            flex items-center justify-center
-                        " >
-                            <p className="text-sm font-semibold uppercase text-[var(--primary-color)]">
-                                {name.charAt(0)}
-                            </p>
+                        {/* Avatar */}
+                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-sm">
+                            <span className="text-sm font-semibold uppercase text-[var(--primary-color)]">
+                                {name?.charAt(0) || "U"}
+                            </span>
                         </div>
+
+                        {/* Mobile Toggle Button */}
                         <button
                             type="button"
                             onClick={handleNavbar}
-                            className="text-white md:hidden cursor-pointer hover:bg-amber-50/10 p-3 rounded-full transition"
+                            aria-label="Toggle navigation menu"
+                            className="cursor-pointer rounded-full p-1 text-white transition hover:bg-white/10 md:hidden"
                         >
                             <CgMenuRightAlt size={24} />
                         </button>
                     </div>
-
                 </header>
 
 
