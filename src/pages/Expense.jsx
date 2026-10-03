@@ -24,13 +24,24 @@ function Expense() {
     const [month, setMonth] = useState(new Date().toISOString().slice(0, 7));
     const today = new Date();
 
-    const minMonth = new Date(
-        today.getFullYear(),
-        today.getMonth() - 1,
-        1
-    )
-        .toISOString()
-        .slice(0, 7);
+    const minMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1).toISOString().slice(0, 7);
+    const maxMonth = today.toISOString().slice(0, 7);
+
+    const handleMonthChange = (e) => {
+        const selected = e.target.value;
+
+        if (selected > maxMonth) {
+            setMonth(maxMonth);
+            return;
+        }
+
+        if (minMonth && selected < minMonth) {
+            setMonth(minMonth);
+            return;
+        }
+
+        setMonth(selected);
+    };
     const int = (n) => "₹" + n.toLocaleString("en-IN");
 
     // Fetch Expense
@@ -141,11 +152,11 @@ function Expense() {
                         <BsCalendar2MonthFill size={19} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
                         <input type="month"
                             value={month}
-                            onChange={(e) => setMonth(e.target.value)}
+                            onChange={handleMonthChange}
                             placeholder="Search by month"
                             required
                             min={minMonth}
-                            max={today.toISOString().slice(0, 7)}
+                            max={maxMonth}
                             className="block
                             w-full
                             min-w-0
