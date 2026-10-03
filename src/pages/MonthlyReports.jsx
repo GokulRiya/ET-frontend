@@ -160,7 +160,7 @@ function MonthlyReport() {
                     <div className="bg-white rounded-2xl border-1 border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] overflow-hidden">
                         <div className="p-6 border-b border-slate-100 flex items-center justify-between">
                             <h2 className="text-base font-semibold text-slate-900 tracking-tight">
-                                Monthly Expenses
+                                Day Wise Expenses
                             </h2>
                         </div>
                         <div className="overflow-x-auto">
