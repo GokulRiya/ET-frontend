@@ -16,16 +16,19 @@ function MonthlyReport() {
 
         if (selected > maxMonth) {
             setMonth(maxMonth);
+            toast.info("Future months cannot be selected");
             return;
         }
 
         if (minMonth && selected < minMonth) {
             setMonth(minMonth);
+            toast.info(`Please select a month after ${minMonth}`);
             return;
         }
 
         setMonth(selected);
     };
+    
     const [report, setReport] = useState({
         totalIncome: 0,
         totalExpense: 0,
