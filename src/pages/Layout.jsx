@@ -31,17 +31,17 @@ function Layout() {
             icon: <BsGridFill />,
         },
         {
-            name: "Income / Expense",
+            name: "Incomes / Expenses",
             path: "/expense",
             icon: <FaRupeeSign />,
         },
         {
-            name: "Category",
+            name: "Categories",
             path: "/category",
             icon: <MdCategory />,
         },
         {
-            name: "Monthly Report",
+            name: "Monthly Reports",
             path: "/monthly-report",
             icon: <HiDocumentChartBar />,
         },

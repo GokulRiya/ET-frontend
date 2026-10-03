@@ -334,7 +334,7 @@ function Expense() {
                                 /* Empty State */
                                 <tr className="p-6 w-full text-sm text-slate-400">
                                     <td colSpan="3" className="p-6">
-                                        No Expense found.
+                                        No Incomes / Expenses found.
                                     </td>
                                 </tr>
                             )}

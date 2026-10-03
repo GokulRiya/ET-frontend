@@ -217,7 +217,7 @@ function Dashboard() {
                                         </div>
                                     ) : (
                                         <div className="flex h-56 items-center justify-center text-sm text-slate-400">
-                                            No expense data yet
+                                            No data found.
                                         </div>
                                     )}
                                 </div>
@@ -234,64 +234,69 @@ function Dashboard() {
                                         </div>
                                     </div>
 
-                                    <div className="h-56 min-w-0 sm:h-64">
-                                        <ResponsiveContainer width="100%" height="100%">
-                                            <BarChart
-                                                data={monthlyData}
-                                                margin={{ top: 8, right: 4, left: -18, bottom: 0 }}
-                                                onMouseLeave={() => setActiveBar(null)}
-                                            >
-                                                <defs>
-                                                    <linearGradient id="monthlyExpenseFill" x1="0" y1="0" x2="0" y2="1">
-                                                        <stop offset="0%" stopColor="#0f766e" stopOpacity={1} />
-                                                        <stop offset="100%" stopColor="#2dd4bf" stopOpacity={0.75} />
-                                                    </linearGradient>
-                                                </defs>
-
-                                                <CartesianGrid vertical={false} stroke="#e2e8f0" strokeDasharray="4 4" />
-
-                                                <XAxis
-                                                    dataKey="name"
-                                                    axisLine={false}
-                                                    tickLine={false}
-                                                    tick={{ fill: "#94a3b8", fontSize: 10 }}
-                                                    interval="preserveStartEnd"
-                                                    minTickGap={12}
-                                                    tickMargin={8}
-                                                />
-
-                                                <YAxis
-                                                    axisLine={false}
-                                                    tickLine={false}
-                                                    tick={{ fill: "#94a3b8", fontSize: 10 }}
-                                                    tickFormatter={(value) => (value >= 1000 ? `${value / 1000}k` : value)}
-                                                    domain={[0, 'auto']}
-                                                />
-
-                                                <Bar
-                                                    dataKey="value"
-                                                    radius={[5, 5, 0, 0]}
-                                                    maxBarSize={38}
-                                                    fill="#0f766e"
-                                                    stroke="none"
-                                                    onMouseEnter={(_, index) => setActiveBar(index)}
+                                    {pieData.length > 0 ? (
+                                        <div className="h-56 min-w-0 sm:h-64">
+                                            <ResponsiveContainer width="100%" height="100%">
+                                                <BarChart
+                                                    data={monthlyData}
+                                                    margin={{ top: 8, right: 4, left: -18, bottom: 0 }}
                                                     onMouseLeave={() => setActiveBar(null)}
                                                 >
-                                                    {monthlyData.map((item, index) => (
-                                                        <Cell
-                                                            key={item.name}
-                                                            fill="url(#monthlyExpenseFill)"
-                                                            style={{
-                                                                outline: "none",
-                                                                opacity: activeBar === null || activeBar === index ? 1 : 0.5,
-                                                                transition: "opacity 150ms",
-                                                            }}
-                                                        />
-                                                    ))}
-                                                </Bar>
-                                            </BarChart>
-                                        </ResponsiveContainer>
-                                    </div>
+                                                    <defs>
+                                                        <linearGradient id="monthlyExpenseFill" x1="0" y1="0" x2="0" y2="1">
+                                                            <stop offset="0%" stopColor="#0f766e" stopOpacity={1} />
+                                                            <stop offset="100%" stopColor="#2dd4bf" stopOpacity={0.75} />
+                                                        </linearGradient>
+                                                    </defs>
+
+                                                    <CartesianGrid vertical={false} stroke="#e2e8f0" strokeDasharray="4 4" />
+
+                                                    <XAxis
+                                                        dataKey="name"
+                                                        axisLine={false}
+                                                        tickLine={false}
+                                                        tick={{ fill: "#94a3b8", fontSize: 10 }}
+                                                        interval="preserveStartEnd"
+                                                        minTickGap={12}
+                                                        tickMargin={8}
+                                                    />
+
+                                                    <YAxis
+                                                        axisLine={false}
+                                                        tickLine={false}
+                                                        tick={{ fill: "#94a3b8", fontSize: 10 }}
+                                                        tickFormatter={(value) => (value >= 1000 ? `${value / 1000}k` : value)}
+                                                        domain={[0, 'auto']}
+                                                    />
+
+                                                    <Bar
+                                                        dataKey="value"
+                                                        radius={[5, 5, 0, 0]}
+                                                        maxBarSize={38}
+                                                        fill="#0f766e"
+                                                        stroke="none"
+                                                        onMouseEnter={(_, index) => setActiveBar(index)}
+                                                        onMouseLeave={() => setActiveBar(null)}
+                                                    >
+                                                        {monthlyData.map((item, index) => (
+                                                            <Cell
+                                                                key={item.name}
+                                                                fill="url(#monthlyExpenseFill)"
+                                                                style={{
+                                                                    outline: "none",
+                                                                    opacity: activeBar === null || activeBar === index ? 1 : 0.5,
+                                                                    transition: "opacity 150ms",
+                                                                }}
+                                                            />
+                                                        ))}
+                                                    </Bar>
+                                                </BarChart>
+                                            </ResponsiveContainer>
+                                        </div>) : (
+                                        <div className="flex h-56 items-center justify-center text-sm text-slate-400">
+                                            No data found.
+                                        </div>
+                                    )}
                                 </div>
                             </section>
                         </>

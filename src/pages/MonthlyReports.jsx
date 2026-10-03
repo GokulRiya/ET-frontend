@@ -135,7 +135,7 @@ function MonthlyReport() {
 
                         {report.categoryData.length === 0 ? (
                             <div className="text-sm text-slate-400">
-                                No expense data found for this month.
+                                No data found for this month.
                             </div>
                         ) : (
                             <div className="divide-y divide-slate-100">
@@ -178,7 +178,7 @@ function MonthlyReport() {
                                     {report.expenses.length === 0 ? (
                                         <tr>
                                             <td colSpan="5" className="p-6 text-sm text-slate-400">
-                                                No expenses found
+                                                No data found for this month.
                                             </td>
                                         </tr>
                                     ) : (

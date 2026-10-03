@@ -222,7 +222,7 @@ function Category() {
                                 /* Empty State */
                                 <tr>
                                     <td className="p-6 text-sm text-slate-400">
-                                        No Category found.
+                                        No Categories found.
                                     </td>
                                 </tr>
                             )}
