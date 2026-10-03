@@ -6,7 +6,6 @@ import { RiEdit2Fill } from "react-icons/ri"
 import { MdDelete, MdDateRange } from "react-icons/md"
 import { BsCalendar2MonthFill } from "react-icons/bs"
 import { getCategorys } from "../services/categoryService"
-import { toast } from "react-toastify"
 
 function Expense() {
     const [loading, setLoading] = useState(true);
@@ -45,7 +44,7 @@ function Expense() {
 
         setMonth(selected);
     };
-    
+
     const int = (n) => "₹" + n.toLocaleString("en-IN");
 
     // Fetch Expense
