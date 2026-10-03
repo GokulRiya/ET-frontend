@@ -156,7 +156,7 @@ function Register() {
 
                     {/* Footer */}
                     <p className="mt-6 text-center text-xs text-gray-400">
-                        © 2026 BRMS. All rights reserved.
+                        © 2026 Expenslytic. All rights reserved.
                     </p>
 
                 </div>

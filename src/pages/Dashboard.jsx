@@ -59,12 +59,7 @@ function Dashboard() {
                 ...item,
                 color: chartColors[index % chartColors.length],
             })));
-            setMonthlyData(response.data.expenses.map((item) => (
-                {
-                    name: new Date(item.date).toISOString().slice(0, 10),
-                    value: item.amount
-                }
-            )))
+            setMonthlyData(response.data.expenses)
         } catch (error) {
             toast.error(error.response?.data?.message || error.message || 'Fetch failed!');
         } finally {
@@ -228,7 +223,7 @@ function Dashboard() {
                                 </div>
                                 <div className="min-w-0 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200/70 sm:p-5">
                                     <div className="mb-3 flex items-start justify-between gap-3">
-                                        <h2 className="text-sm font-semibold text-slate-800">Monthly expenses</h2>
+                                        <h2 className="text-sm font-semibold text-slate-800">Day wise expenses</h2>
                                         <div className="text-right">
                                             <p className="text-xs text-slate-500">
                                                 {activeBarItem ? activeBarItem.name : "Total"}
@@ -270,12 +265,14 @@ function Dashboard() {
                                                     tickLine={false}
                                                     tick={{ fill: "#94a3b8", fontSize: 10 }}
                                                     tickFormatter={(value) => (value >= 1000 ? `${value / 1000}k` : value)}
+                                                    domain={[0, 'auto']}
                                                 />
 
                                                 <Bar
                                                     dataKey="value"
                                                     radius={[5, 5, 0, 0]}
                                                     maxBarSize={38}
+                                                    fill="#0f766e"
                                                     stroke="none"
                                                     onMouseEnter={(_, index) => setActiveBar(index)}
                                                     onMouseLeave={() => setActiveBar(null)}
