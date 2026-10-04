@@ -160,11 +160,11 @@ function Layout() {
                     <div className="flex items-center gap-2 sm:gap-3">
                         {/* User Details */}
                         <div className="hidden sm:block text-right">
-                            <p className="text-sm font-semibold leading-tight text-white">
-                                {name}
+                            <p className="text-sm font-semibold leading-tight text-white" title={name}>
+                                {name?.length > 15 ? `${name.slice(0, 15)}...` : name}
                             </p>
-                            <p className="text-xs text-white/80">
-                                {email}
+                            <p className="text-xs text-white/80" title={email}>
+                                {email?.length > 15 ? `${email.slice(0, 10)}...` : email}
                             </p>
                         </div>
 

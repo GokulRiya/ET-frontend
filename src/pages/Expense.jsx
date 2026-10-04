@@ -84,6 +84,8 @@ function Expense() {
     // Handle form submit for adding a Expense
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (loading) return;
+        setLoading(true);
         try {
             let response;
             if (editExpense) {
@@ -107,6 +109,7 @@ function Expense() {
             fetchExpense(searchCategory, month);
         } catch (error) {
             toast.error(error.response?.data?.message || (editExpense ? "Failed to update Expense" : "Failed to add Expense"));
+            setLoading(false);
         }
     };
 
@@ -197,7 +200,7 @@ function Expense() {
 
             {/* Modal Overlay */}
             {showModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4 h-screen">
                     <div className="w-full max-w-md min-w-0 bg-white rounded-xl shadow-xl p-6 border border-slate-100">
                         <h2 className="text-xl font-bold text-slate-900 mb-4">{editExpense ? 'Edit Expense' : 'New Expense'}</h2>
                         <form onSubmit={handleSubmit} className="space-y-4">
@@ -283,8 +286,9 @@ function Expense() {
                                     className="rounded-lg border border-slate-200 cursor-pointer px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50">
                                     Cancel</button>
                                 <button type="submit"
+                                    disabled={loading}
                                     className="rounded-lg bg-(--primary-color) cursor-pointer px-4 py-2 text-sm font-medium text-white hover:bg-(--secondary-color)">
-                                    {editExpense ? 'Update Expense' : 'Save Expense'}</button>
+                                    {loading ? 'Please wait...' : editExpense ? 'Update Expense' : 'Save Expense'}</button>
                             </div>
                         </form>
                     </div>

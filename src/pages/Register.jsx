@@ -15,11 +15,14 @@ function Register() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (loading) return;
+        setLoading(true);
 
         try {
             await register({
@@ -35,6 +38,7 @@ function Register() {
             navigate("/login");
         } catch (error) {
             toast.error(error.response?.data?.message || error.message || 'Registration failed!');
+            setLoading(false);
         }
     }
     return (
@@ -133,9 +137,10 @@ function Register() {
                             {/* Register Button */}
                             <button
                                 type="submit"
-                                className="w-full rounded-lg bg-(--primary-color) cursor-pointer px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-(--secondary-color) focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:scale-[0.99]"
+                                disabled={loading}
+                                className={`w-full rounded-lg bg-(--primary-color) px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-(--secondary-color) focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:scale-[0.99] ${loading ? 'opacity-70 cursor-not-allowed' : 'cursor-pointer'}`}
                             >
-                                Register
+                                {loading ? 'Please wait...' : 'Register'}
                             </button>
 
                         </form>

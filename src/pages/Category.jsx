@@ -43,6 +43,8 @@ function Category() {
     // Handle form submit for adding a Category
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (loading) return;
+        setLoading(true);
         try {
             let response;
             if (editCategory) {
@@ -61,6 +63,7 @@ function Category() {
             fetchCategory();
         } catch (error) {
             toast.error(error.response?.data?.message || (editCategory ? "Failed to update Category" : "Failed to add Category"));
+            setLoading(false);
         }
     };
 
@@ -125,7 +128,7 @@ function Category() {
 
             {/* Modal Overlay */}
             {showModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4 h-screen">
                     <div className="w-full max-w-md bg-white rounded-xl shadow-xl p-6 border border-slate-100">
                         <h2 className="text-xl font-bold text-slate-900 mb-4">{editCategory ? 'Edit Category' : 'New Category'}</h2>
                         <form onSubmit={handleSubmit} className="space-y-4">
@@ -170,8 +173,9 @@ function Category() {
                                     className="rounded-lg border border-slate-200 cursor-pointer px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50">
                                     Cancel</button>
                                 <button type="submit"
+                                    disabled={loading}
                                     className="rounded-lg bg-(--primary-color) cursor-pointer px-4 py-2 text-sm font-medium text-white hover:bg-(--secondary-color)">
-                                    {editCategory ? 'Update Category' : 'Save Category'}</button>
+                                    {loading ? 'Please wait...' : editCategory ? 'Update Category' : 'Save Category'}</button>
                             </div>
                         </form>
                     </div>
