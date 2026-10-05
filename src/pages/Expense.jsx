@@ -75,10 +75,15 @@ function Expense() {
     };
 
     useEffect(() => {
-        const timer = setTimeout(() => {
+        if (searchCategory != "" && month != "") {
+            const timer = setTimeout(() => {
+                fetchExpense(searchCategory, month);
+            }, 500);
+            return () => clearTimeout(timer);
+        } else {
             fetchExpense(searchCategory, month);
-        }, 500);
-        return () => clearTimeout(timer);
+        }
+
     }, [searchCategory, month]);
 
     // Handle form submit for adding a Expense

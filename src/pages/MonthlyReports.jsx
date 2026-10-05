@@ -62,7 +62,7 @@ function MonthlyReport() {
     useEffect(() => {
         const timer = setTimeout(() => {
             fetchReport();
-        }, 500);
+        }, 0);
         return () => clearTimeout(timer);
     }, [fetchReport]);
 

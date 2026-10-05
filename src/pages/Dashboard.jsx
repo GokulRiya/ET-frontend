@@ -68,11 +68,8 @@ function Dashboard() {
     };
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            fetchExpense(month);
-        }, 500);
-        return () => clearTimeout(timer);
-    }, [month]);
+        fetchExpense(month);
+    }, []);
 
 
     const balance = totalIncome - totalExpense;

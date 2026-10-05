@@ -31,13 +31,17 @@ function Category() {
     };
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            fetchCategory(searchCategory);
-        }, 500); // Debounce search requests
+        if (searchCategory != "") {
+            const timer = setTimeout(() => {
+                fetchCategory(searchCategory);
+            }, 500); // Debounce search requests
 
-        return () => {
-            clearTimeout(timer);
-        };
+            return () => {
+                clearTimeout(timer);
+            };
+        } else {
+            fetchCategory(searchCategory);
+        }
     }, [searchCategory]);
 
     // Handle form submit for adding a Category
