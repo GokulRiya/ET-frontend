@@ -206,9 +206,9 @@ function Expense() {
 
             {/* Modal Overlay */}
             {showModal && createPortal((
-                <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-slate-900/50 backdrop-blur-sm sm:p-4">
+                <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4 h-screen">
                     <div className="flex w-full min-w-0 max-w-md flex-col overflow-hidden bg-white shadow-xl border border-slate-100
-                    max-h-[92dvh] rounded-t-2xl sm:max-h-[90dvh] sm:rounded-xl">
+                    max-h-[92dvh] rounded-2xl sm:max-h-[90dvh] sm:rounded-xl">
 
                         {/* Header */}
                         <div className="shrink-0 border-b border-slate-100 px-4 py-3 sm:px-6">
