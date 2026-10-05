@@ -180,7 +180,7 @@ function Layout() {
                             type="button"
                             onClick={handleNavbar}
                             aria-label="Toggle navigation menu"
-                            className="cursor-pointer rounded-full p-1.5 text-white transition hover:bg-white/10 md:hidden"
+                            className="cursor-pointer rounded-full p-0.5 sm:p-1.5 text-white transition hover:bg-white/10 md:hidden"
                         >
                             <CgMenuRightAlt size={24} />
                         </button>
