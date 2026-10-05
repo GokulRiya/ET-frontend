@@ -62,10 +62,10 @@ function Layout() {
                     type="button"
                     aria-label="Close navigation menu"
                     onClick={() => setShowNavbar(false)}
-                    className="fixed inset-0 z-40 bg-black/30 md:hidden"
+                    className="fixed inset-0 z-40 bg-black/30 lg:hidden"
                 />
             )}
-            <aside className={`fixed left-0 top-0 bottom-0 z-50 bg-(--primary-color) flex w-64 flex-col border border-black/10 text-white shadow-2xl transition-transform duration-200 md:translate-x-0 ${showNavbar ? "translate-x-0" : "translate-x-[-110%]"}`}>
+            <aside className={`fixed left-0 top-0 bottom-0 z-50 bg-(--primary-color) flex w-64 flex-col border border-black/10 text-white shadow-2xl transition-transform duration-200 lg:translate-x-0 ${showNavbar ? "translate-x-0" : "translate-x-[-110%]"}`}>
 
                 {/* Logo */}
                 <div className="h-16 flex items-center justify-start px-6 gap-3 border-b border-white/10">
@@ -134,16 +134,16 @@ function Layout() {
 
 
             {/* ================= MAIN ================= */}
-            <main ref={mainContentRef} className="ml-0 h-dvh min-h-0 flex-1 overflow-y-auto rounded-2xl md:ml-64">
+            <main ref={mainContentRef} className="ml-0 h-dvh min-h-0 flex-1 overflow-y-auto rounded-2xl lg:ml-64">
 
                 {/* Topbar */}
-                <header className="fixed top-0 right-0 z-30 flex h-16 w-full md:w-[calc(100%-16rem)] items-center justify-between border-b border-black/10 bg-[var(--primary-color)] px-4 shadow-[0_2px_8px_rgba(0,0,0,0.08)] sm:px-5 lg:px-6">
+                <header className="fixed top-0 right-0 z-30 flex h-16 w-full lg:w-[calc(100%-16rem)] items-center justify-between border-b border-black/10 bg-[var(--primary-color)] px-4 shadow-[0_2px_8px_rgba(0,0,0,0.08)] sm:px-5 lg:px-6">
                     {/* Mobile Brand / Logo */}
                     <div className="flex items-center">
                         <Link
                             to="/dashboard"
                             onClick={() => setShowNavbar(false)}
-                            className="flex sm:hidden items-center gap-3"
+                            className="flex lg:hidden items-center gap-3"
                         >
                             <img
                                 src="/assets/icon-192.webp"
@@ -159,7 +159,7 @@ function Layout() {
                     {/* User & Menu */}
                     <div className="flex items-center gap-2 sm:gap-3">
                         {/* User Details */}
-                        <div className="hidden sm:block text-right">
+                        <div className="hidden lg:block text-right">
                             <p className="text-sm font-semibold leading-tight text-white" title={name}>
                                 {name?.length > 15 ? `${name.slice(0, 15)}...` : name}
                             </p>
@@ -180,7 +180,7 @@ function Layout() {
                             type="button"
                             onClick={handleNavbar}
                             aria-label="Toggle navigation menu"
-                            className="cursor-pointer rounded-full p-1.5 text-white transition hover:bg-white/10 md:hidden"
+                            className="cursor-pointer rounded-full p-1 sm:p-1.5 text-white transition hover:bg-white/10 lg:hidden"
                         >
                             <CgMenuRightAlt size={24} />
                         </button>
