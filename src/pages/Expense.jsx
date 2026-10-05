@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { createPortal } from "react-dom"
 import { getExpenses, createExpense, getExpenseById, updateExpense, deleteExpense } from "../services/expenseService"
 import { toast } from 'react-toastify'
 import { FaPlusCircle, FaRupeeSign, FaSearch } from "react-icons/fa"
@@ -204,101 +205,107 @@ function Expense() {
             </div>
 
             {/* Modal Overlay */}
-            {showModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4 h-screen">
-                    <div className="w-full max-w-md min-w-0 h-[350px] flex flex-col overflow-hidden bg-white rounded-xl shadow-xl border border-slate-100">
-                        <h2 className="shrink-0 text-xl font-bold text-slate-900 shadow-lg py-3 px-6">{editExpense ? 'Edit Expense' : 'New Expense'}</h2>
-                        <form onSubmit={handleSubmit} className="min-h-0 flex-1 overflow-y-auto space-y-4 py-3 px-6">
+            {showModal && createPortal((
+                <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-slate-900/50 backdrop-blur-sm sm:p-4">
+                    <div className="flex w-full min-w-0 max-w-md flex-col overflow-hidden bg-white shadow-xl border border-slate-100
+                    max-h-[92dvh] rounded-t-2xl sm:max-h-[90dvh] sm:rounded-xl">
 
-                            <div>
+                        {/* Header */}
+                        <div className="shrink-0 border-b border-slate-100 px-4 py-3 sm:px-6">
+                            <h2 className="text-lg sm:text-xl font-bold text-slate-900">
+                                {editExpense ? 'Edit Expense' : 'New Expense'}
+                            </h2>
+                        </div>
 
-                                <label className="block text-sm font-medium mb-1">
-                                    Category
-                                </label>
+                        <form onSubmit={handleSubmit} className="flex min-h-0 flex-1 flex-col">
+                            {/* Scrollable body */}
+                            <div className="min-h-0 flex-1 space-y-4 overflow-y-auto px-4 py-4 sm:px-6">
 
-                                <select
-                                    name="categoryId"
-                                    value={newExpense.categoryId}
-                                    onChange={(e) => setNewExpense({ ...newExpense, categoryId: e.target.value })}
-                                    required
-                                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-(--primary-color) focus:ring-2 focus:ring-(--primary-color)/10"
-                                >
-
-                                    <option value="">Select Category </option>
-
-                                    {categories.map((category) => (
-
-                                        <option key={category._id} value={category._id} >
-                                            {category.categoryName}
-                                            {" "}
-                                            ({category.type})
-                                        </option>
-                                    ))}
-                                </select>
-
-                            </div>
-                            <div>
-                                <label className="mb-1 block text-sm font-medium text-gray-700">Amount</label>
-                                <div className="relative">
-                                    <FaRupeeSign size={19} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
-                                    <input type="number"
-                                        value={newExpense.amount}
-                                        onChange={(e) => setNewExpense({ ...newExpense, amount: e.target.value })}
-                                        placeholder="Enter amount"
-                                        min="1"
+                                <div>
+                                    <label className="mb-1 block text-sm font-medium text-gray-700">Category</label>
+                                    <select
+                                        name="categoryId"
+                                        value={newExpense.categoryId}
+                                        onChange={(e) => setNewExpense({ ...newExpense, categoryId: e.target.value })}
                                         required
-                                        className="w-full rounded-lg border border-gray-300 px-4 py-3 pl-10 pr-4 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100" />
+                                        className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-base sm:text-sm text-gray-900 outline-none transition focus:border-(--primary-color) focus:ring-2 focus:ring-(--primary-color)/10"
+                                    >
+                                        <option value="">Select Category</option>
+                                        {categories.map((category) => (
+                                            <option key={category._id} value={category._id}>
+                                                {category.categoryName} ({category.type})
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label className="mb-1 block text-sm font-medium text-gray-700">Amount</label>
+                                    <div className="relative">
+                                        <FaRupeeSign size={18} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                                        <input
+                                            type="number"
+                                            inputMode="decimal"
+                                            value={newExpense.amount}
+                                            onChange={(e) => setNewExpense({ ...newExpense, amount: e.target.value })}
+                                            placeholder="Enter amount"
+                                            min="1"
+                                            required
+                                            className="w-full rounded-lg border border-gray-300 py-3 pl-10 pr-4 text-base sm:text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-(--primary-color) focus:ring-2 focus:ring-(--primary-color)/10"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="mb-1 block text-sm font-medium text-gray-700">Date</label>
+                                    <div className="relative">
+                                        <MdDateRange size={18} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                                        <input
+                                            type="date"
+                                            value={newExpense.date}
+                                            onChange={(e) => setNewExpense({ ...newExpense, date: e.target.value })}
+                                            min={new Date(today.getFullYear(), today.getMonth() - 2, 2).toISOString().split("T")[0]}
+                                            max={new Date().toISOString().split("T")[0]}
+                                            required
+                                            className="block min-h-[46px] w-full min-w-0 max-w-full appearance-none rounded-lg border border-gray-300 py-3 pl-10 pr-4 text-base sm:text-sm text-gray-900 outline-none transition focus:border-(--primary-color) focus:ring-2 focus:ring-(--primary-color)/10"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="mb-1 block text-sm font-medium text-gray-700">Description</label>
+                                    <textarea
+                                        rows={3}
+                                        value={newExpense.description}
+                                        onChange={(e) => setNewExpense({ ...newExpense, description: e.target.value })}
+                                        placeholder="Enter description"
+                                        required
+                                        className="w-full resize-none rounded-lg border border-gray-300 px-4 py-3 text-base sm:text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-(--primary-color) focus:ring-2 focus:ring-(--primary-color)/10"
+                                    />
                                 </div>
                             </div>
 
-                            <div>
-                                <label className="mb-1 block text-sm font-medium text-gray-700">
-                                    Date
-                                </label>
-
-                                <div className="relative">
-                                    <MdDateRange size={19} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
-                                    <input type="date"
-                                        value={newExpense.date}
-                                        onChange={(e) => setNewExpense({ ...newExpense, date: e.target.value })}
-                                        placeholder="Choose date"
-                                        min={new Date(today.getFullYear(), today.getMonth() - 2, 2).toISOString().split("T")[0]}
-                                        max={new Date().toISOString().split("T")[0]}
-                                        required
-                                        className=" block
-                            w-full
-                            min-w-0
-                            max-w-full
-                            appearance-none
-                             rounded-lg border border-gray-300 px-4 py-3 pl-10 pr-4 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100" />
-                                </div>
-                            </div>
-
-                            <div>
-                                <label className="mb-1 block text-sm font-medium text-gray-700">Description</label>
-                                <textarea type="text"
-                                    value={newExpense.description}
-                                    onChange={(e) => setNewExpense({ ...newExpense, description: e.target.value })}
-                                    placeholder="Enter description"
-                                    required
-                                    className="w-full rounded-lg border border-gray-300 px-4 py-3 pr-4 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100" />
-                            </div>
-
-
-                            <div className="flex justify-end gap-3 pt-2">
-                                <button type="button"
+                            {/* Pinned footer */}
+                            <div className="shrink-0 flex flex-col-reverse gap-2 border-t border-slate-100 px-4 py-3 sm:flex-row sm:justify-end sm:gap-3 sm:px-6 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+                                <button
+                                    type="button"
                                     onClick={() => { setShowModal(false); setEditExpense(null); fetchExpense(searchCategory, month); }}
-                                    className="rounded-lg border border-slate-200 cursor-pointer px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50">
-                                    Cancel</button>
-                                <button type="submit"
+                                    className="w-full sm:w-auto cursor-pointer rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
                                     disabled={loading}
-                                    className="rounded-lg bg-(--primary-color) cursor-pointer px-4 py-2 text-sm font-medium text-white hover:bg-(--secondary-color)">
-                                    {loading ? 'Please wait...' : editExpense ? 'Update Expense' : 'Save Expense'}</button>
+                                    className="w-full sm:w-auto cursor-pointer rounded-lg bg-(--primary-color) px-4 py-2.5 text-sm font-medium text-white hover:bg-(--secondary-color) disabled:cursor-not-allowed disabled:opacity-60"
+                                >
+                                    {loading ? 'Please wait...' : editExpense ? 'Update Expense' : 'Save Expense'}
+                                </button>
                             </div>
                         </form>
                     </div>
                 </div>
-            )}
+            ), document.body)}
 
             {/* Table Container with modern shadows & rounding */}
             <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900 mb-4">

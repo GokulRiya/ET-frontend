@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { createPortal } from "react-dom"
 import { getCategorys, createCategory, getCategoryById, updateCategory, deleteCategory } from "../services/categoryService"
 import { toast } from 'react-toastify'
 import { FaPlusCircle } from "react-icons/fa"
@@ -131,11 +132,14 @@ function Category() {
             </div>
 
             {/* Modal Overlay */}
-            {showModal && (
+            {showModal && createPortal((
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4 h-screen">
-                    <div className="w-full max-w-md bg-white rounded-xl shadow-xl p-6 border border-slate-100">
-                        <h2 className="text-xl font-bold text-slate-900 mb-4">{editCategory ? 'Edit Category' : 'New Category'}</h2>
-                        <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="flex w-full min-w-0 max-w-md flex-col overflow-hidden rounded-xl border border-slate-100 bg-white shadow-xl max-h-[90dvh]">
+                        <div className="shrink-0 border-b border-slate-100 px-4 py-3 sm:px-6">
+                            <h2 className="text-lg font-bold text-slate-900 sm:text-xl">{editCategory ? 'Edit Category' : 'New Category'}</h2>
+                        </div>
+                        <form onSubmit={handleSubmit} className="flex min-h-0 flex-1 flex-col">
+                            <div className="min-h-0 flex-1 space-y-4 overflow-y-auto px-4 py-4 sm:px-6">
 
                             <div>
                                 <label
@@ -171,20 +175,21 @@ function Category() {
 
                             </div>
 
-                            <div className="flex justify-end gap-3 pt-2">
+                            </div>
+                            <div className="shrink-0 flex flex-col-reverse gap-2 border-t border-slate-100 px-4 py-3 sm:flex-row sm:justify-end sm:gap-3 sm:px-6">
                                 <button type="button"
                                     onClick={() => { setShowModal(false); setEditCategory(null); }}
-                                    className="rounded-lg border border-slate-200 cursor-pointer px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50">
+                                    className="w-full rounded-lg border border-slate-200 cursor-pointer px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 sm:w-auto">
                                     Cancel</button>
                                 <button type="submit"
                                     disabled={loading}
-                                    className="rounded-lg bg-(--primary-color) cursor-pointer px-4 py-2 text-sm font-medium text-white hover:bg-(--secondary-color)">
+                                    className="w-full rounded-lg bg-(--primary-color) cursor-pointer px-4 py-2.5 text-sm font-medium text-white hover:bg-(--secondary-color) sm:w-auto">
                                     {loading ? 'Please wait...' : editCategory ? 'Update Category' : 'Save Category'}</button>
                             </div>
                         </form>
                     </div>
                 </div>
-            )}
+            ), document.body)}
 
             {/* Table Container with modern shadows & rounding */}
             <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
