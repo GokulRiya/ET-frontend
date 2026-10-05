@@ -109,7 +109,7 @@ function MonthlyReport() {
                         {/* Income Card */}
                         <div className="relative overflow-hidden bg-white rounded-2xl p-6 border-1 border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] transition-all hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)]">
                             <div className="flex items-center justify-between">
-                                <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                                <p className="text-xs font-semibold text-slate-400">
                                     Total Income
                                 </p>
                                 <span className="h-2 w-2 rounded-full bg-emerald-500 ring-4 ring-emerald-50" />
@@ -122,7 +122,7 @@ function MonthlyReport() {
                         {/* Expense Card */}
                         <div className="relative overflow-hidden bg-white rounded-2xl p-6 border-1 border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] transition-all hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)]">
                             <div className="flex items-center justify-between">
-                                <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                                <p className="text-xs font-semibold text-slate-400">
                                     Total Expense
                                 </p>
                                 <span className="h-2 w-2 rounded-full bg-rose-500 ring-4 ring-rose-50" />
@@ -135,7 +135,7 @@ function MonthlyReport() {
                         {/* Balance Card */}
                         <div className="relative overflow-hidden bg-white rounded-2xl p-6 border-1 border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] transition-all hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)]">
                             <div className="flex items-center justify-between">
-                                <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                                <p className="text-xs font-semibold text-slate-400">
                                     Net Balance
                                 </p>
                                 <span className="h-2 w-2 rounded-full bg-indigo-500 ring-4 ring-indigo-50" />
