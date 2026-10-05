@@ -206,9 +206,9 @@ function Expense() {
             {/* Modal Overlay */}
             {showModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4 h-screen">
-                    <div className="w-full max-w-md min-w-0 bg-white rounded-xl shadow-xl p-6 border border-slate-100">
-                        <h2 className="text-xl font-bold text-slate-900 mb-4">{editExpense ? 'Edit Expense' : 'New Expense'}</h2>
-                        <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="w-full max-w-md min-w-0 h-[350px] flex flex-col overflow-hidden bg-white rounded-xl shadow-xl border border-slate-100">
+                        <h2 className="shrink-0 text-xl font-bold text-slate-900 shadow-lg py-3 px-6">{editExpense ? 'Edit Expense' : 'New Expense'}</h2>
+                        <form onSubmit={handleSubmit} className="min-h-0 flex-1 overflow-y-auto space-y-4 py-3 px-6">
 
                             <div>
 
@@ -238,7 +238,7 @@ function Expense() {
 
                             </div>
                             <div>
-                                <label className="mb-2 block text-sm font-medium text-gray-700">Amount</label>
+                                <label className="mb-1 block text-sm font-medium text-gray-700">Amount</label>
                                 <div className="relative">
                                     <FaRupeeSign size={19} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
                                     <input type="number"
@@ -252,7 +252,7 @@ function Expense() {
                             </div>
 
                             <div>
-                                <label className="mb-2 block text-sm font-medium text-gray-700">
+                                <label className="mb-1 block text-sm font-medium text-gray-700">
                                     Date
                                 </label>
 
@@ -275,7 +275,7 @@ function Expense() {
                             </div>
 
                             <div>
-                                <label className="mb-2 block text-sm font-medium text-gray-700">Description</label>
+                                <label className="mb-1 block text-sm font-medium text-gray-700">Description</label>
                                 <textarea type="text"
                                     value={newExpense.description}
                                     onChange={(e) => setNewExpense({ ...newExpense, description: e.target.value })}

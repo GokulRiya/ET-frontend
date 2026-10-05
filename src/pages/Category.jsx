@@ -139,7 +139,7 @@ function Category() {
 
                             <div>
                                 <label
-                                    className="mb-2 block text-sm font-medium text-gray-700">Category Name</label>
+                                    className="mb-1 block text-sm font-medium text-gray-700">Category Name</label>
                                 <div className="relative">
                                     <MdCategory size={19} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
                                     <input type="text"
@@ -152,7 +152,7 @@ function Category() {
                             </div>
 
                             <div>
-                                <label className="mb-2 block text-sm font-medium text-gray-700">
+                                <label className="mb-1 block text-sm font-medium text-gray-700">
                                     Type
                                 </label>
 
