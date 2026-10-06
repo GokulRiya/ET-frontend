@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import { getCategorys, createCategory, getCategoryById, updateCategory, deleteCategory } from "../services/categoryService"
 import { toast } from 'react-toastify'
@@ -10,6 +10,11 @@ import { FaSearch } from "react-icons/fa"
 function Category() {
     const [category, setCategory] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [actionBusy, setActionBusy] = useState(false);
+    const [editLoading, setEditLoading] = useState(false);
+    const actionLock = useRef(false);
+    const submitLock = useRef(false);
+    const [deleteCategoryId, setDeleteCategoryId] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [newCategory, setNewCategory] = useState({ categoryName: '', type: '' });
     const [editCategory, setEditCategory] = useState(null);
@@ -48,7 +53,8 @@ function Category() {
     // Handle form submit for adding a Category
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (loading) return;
+        if (loading || submitLock.current) return;
+        submitLock.current = true;
         setLoading(true);
         try {
             let response;
@@ -65,15 +71,21 @@ function Category() {
             setShowModal(false);
             setEditCategory(null);
             setNewCategory({ categoryName: '', type: '' });
-            fetchCategory();
+            await fetchCategory();
         } catch (error) {
             toast.error(error.response?.data?.message || (editCategory ? "Failed to update Category" : "Failed to add Category"));
+        } finally {
+            submitLock.current = false;
             setLoading(false);
         }
     };
 
     // Edit Category
     const handleEdit = async (e) => {
+        if (actionLock.current) return;
+        actionLock.current = true;
+        setActionBusy(true);
+        setEditLoading(true);
         try {
             const response = await getCategoryById(e._id);
             const data = response.data;
@@ -85,19 +97,33 @@ function Category() {
             });
         } catch (error) {
             toast.error(error.response?.data?.message || "Failed to load Category");
+        } finally {
+            actionLock.current = false;
+            setActionBusy(false);
+            setEditLoading(false);
         }
     }
 
     // Delete Category
-    const handleDelete = async (id) => {
+    const handleDelete = (id) => {
+        setDeleteCategoryId(id);
+    }
+
+    const confirmDelete = async () => {
+        if (!deleteCategoryId || actionLock.current) return;
+        actionLock.current = true;
+        setActionBusy(true);
         try {
-            await deleteCategory(id);
+            await deleteCategory(deleteCategoryId);
             toast.success("Category deleted successfully!");
-            fetchCategory();
+            setDeleteCategoryId(null);
+            await fetchCategory();
         } catch (error) {
             toast.error(error.response?.data?.message || "Failed to delete Category");
+        } finally {
+            actionLock.current = false;
+            setActionBusy(false);
         }
-
     }
     return (
         <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-8 bg-slate-50/50 min-h-screen overall-bg">
@@ -125,11 +151,46 @@ function Category() {
                         setNewCategory({ categoryName: '', type: '' });
                         setShowModal(true);
                     }}
-                    className="inline-flex items-center justify-center rounded-lg bg-(--primary-color) cursor-pointer px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-(--secondary-color) transition duration-200"
+                    className="inline-flex items-center justify-center rounded-lg bg-(--primary-color) cursor-pointer px-4 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-(--secondary-color) transition duration-200"
                 >
                     <FaPlusCircle size={19} className="pointer-events-none mr-2" /> Add Category
                 </button>
             </div>
+
+            {editLoading && createPortal((
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm" role="status" aria-live="polite">
+                    <div className="flex items-center gap-3 rounded-xl bg-white px-6 py-4 shadow-xl">
+                        <span className="h-6 w-6 animate-spin rounded-full border-2 border-slate-300 border-t-indigo-600" aria-hidden="true" />
+                        <span className="text-sm font-medium text-slate-700">Loading category...</span>
+                    </div>
+                </div>
+            ), document.body)}
+
+            {deleteCategoryId && createPortal((
+                <div className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-900/50 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="delete-category-title">
+                    <div className="w-full max-w-sm rounded-xl bg-white p-6 shadow-xl">
+                        {actionBusy ? (
+                            <div className="flex items-center justify-center gap-3 py-2" role="status" aria-live="polite">
+                                <span className="h-6 w-6 animate-spin rounded-full border-2 border-slate-300 border-t-indigo-600" aria-hidden="true" />
+                                <span className="text-sm font-medium text-slate-700">Deleting category...</span>
+                            </div>
+                        ) : (
+                            <>
+                                <h2 id="delete-category-title" className="text-lg font-semibold text-slate-900">
+                                    Delete this category?
+                                </h2>
+                                <p className="mt-2 text-sm text-slate-600">
+                                    This will permanently remove the category. You won't be able to get it back.
+                                </p>
+                                <div className="mt-6 flex justify-end gap-3">
+                                    <button type="button" onClick={() => setDeleteCategoryId(null)} className="cursor-pointer rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50">No, cancel</button>
+                                    <button type="button" onClick={confirmDelete} className="cursor-pointer rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700">Yes, delete</button>
+                                </div>
+                            </>
+                        )}
+                    </div>
+                </div>
+            ), document.body)}
 
             {/* Modal Overlay */}
             {showModal && createPortal((
@@ -179,12 +240,12 @@ function Category() {
                             <div className="shrink-0 flex flex-col-reverse gap-2 border-t border-slate-100 px-4 py-3 sm:flex-row sm:justify-end sm:gap-3 sm:px-6">
                                 <button type="button"
                                     onClick={() => { setShowModal(false); setEditCategory(null); }}
-                                    className="w-full rounded-lg border border-slate-200 cursor-pointer px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 sm:w-auto">
+                                    className="w-full rounded-lg border border-slate-200 cursor-pointer px-4 py-1.5 text-sm font-medium text-slate-600 hover:bg-slate-50 sm:w-auto">
                                     Cancel</button>
                                 <button
                                     type="submit"
                                     disabled={loading}
-                                    className="w-full sm:w-auto cursor-pointer rounded-lg bg-(--primary-color) px-4 py-2.5 text-sm font-medium text-white hover:bg-(--secondary-color) disabled:cursor-not-allowed disabled:opacity-60"
+                                    className="w-full sm:w-auto cursor-pointer rounded-lg bg-(--primary-color) px-4 py-1.5 text-sm font-medium text-white hover:bg-(--secondary-color) disabled:cursor-not-allowed disabled:opacity-60"
                                 >
                                     {loading ? 'Please wait...' : editCategory ? 'Update Category' : 'Save Category'}
                                 </button>
@@ -222,15 +283,19 @@ function Category() {
                                 category.map((value, index) => (
                                     <tr key={index} className="hover:bg-slate-50/70 transition-colors dark:hover:bg-slate-800/50">
 
-                                        <td className="whitespace-nowrap px-6 py-2.5 font-medium text-slate-900 dark:text-slate-200">
+                                        <td className="whitespace-nowrap px-6 py-1.5 font-medium text-slate-900 dark:text-slate-200">
                                             {value.categoryName}
                                         </td>
-                                        <td className="whitespace-nowrap px-6 py-2.5 font-medium text-slate-900 dark:text-slate-200 capitalize">
+                                        <td className="whitespace-nowrap px-6 py-1.5 font-medium text-slate-900 dark:text-slate-200 capitalize">
                                             {value.type}
                                         </td>
-                                        <td className="whitespace-nowrap px-6 py-2.5 flex justify-center gap-4">
-                                            <RiEdit2Fill onClick={() => handleEdit(value)} size={19} title="Edit" className="cursor-pointer text-indigo-500 hover:text-indigo-700" />
-                                            <MdDelete onClick={() => handleDelete(value._id)} size={19} title="Delete" className="cursor-pointer text-red-500 hover:text-red-700" />
+                                        <td className="whitespace-nowrap px-6 py-1.5 flex justify-center gap-4">
+                                            <button type="button" onClick={() => handleEdit(value)} disabled={actionBusy} aria-label="Edit category" title="Edit" className="p-1.5 rounded-2xl cursor-pointer text-indigo-500 hover:bg-gray-300 hover:text-black disabled:cursor-not-allowed disabled:opacity-50">
+                                                <RiEdit2Fill size={19} />
+                                            </button>
+                                            <button type="button" onClick={() => handleDelete(value._id)} disabled={actionBusy} aria-label="Delete category" title="Delete" className="p-1.5 rounded-2xl cursor-pointer text-red-500 hover:bg-gray-300 hover:text-black disabled:cursor-not-allowed disabled:opacity-50">
+                                                <MdDelete size={19} />
+                                            </button>
                                         </td>
                                     </tr>
                                 ))

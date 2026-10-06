@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import { getExpenses, createExpense, getExpenseById, updateExpense, deleteExpense } from "../services/expenseService"
 import { toast } from 'react-toastify'
@@ -10,9 +10,15 @@ import { getCategorys } from "../services/categoryService"
 
 function Expense() {
     const [loading, setLoading] = useState(true);
+    const [actionBusy, setActionBusy] = useState(false);
+    const [editLoading, setEditLoading] = useState(false);
+    const actionLock = useRef(false);
+    const submitLock = useRef(false);
     const [Expense, setExpense] = useState([]);
     const [categories, setCategories] = useState([]);
     const [showModal, setShowModal] = useState(false);
+    const [deleteExpenseId, setDeleteExpenseId] = useState(null);
+    const [delteType, setDeleteType] = useState(null)
     const [newExpense, setNewExpense] = useState(
         {
             categoryId: '',
@@ -90,7 +96,8 @@ function Expense() {
     // Handle form submit for adding a Expense
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (loading) return;
+        if (loading || submitLock.current) return;
+        submitLock.current = true;
         setLoading(true);
         try {
             let response;
@@ -112,18 +119,26 @@ function Expense() {
                 amount: "",
                 description: ""
             });
-            fetchExpense(searchCategory, month);
+            await fetchExpense(searchCategory, month);
         } catch (error) {
             toast.error(error.response?.data?.message || (editExpense ? "Failed to update Expense" : "Failed to add Expense"));
+        } finally {
+            submitLock.current = false;
             setLoading(false);
         }
     };
 
     // Edit Expense
     const handleEdit = async (e) => {
+        if (actionLock.current) return;
+        actionLock.current = true;
+        setActionBusy(true);
+        setEditLoading(true);
         try {
-            fetchCategory();
-            const response = await getExpenseById(e._id);
+            const [response] = await Promise.all([
+                getExpenseById(e._id),
+                fetchCategory()
+            ]);
             const data = response.data;
             setEditExpense(data);
             setShowModal(true);
@@ -135,19 +150,34 @@ function Expense() {
             });
         } catch (error) {
             toast.error(error.response?.data?.message || "Failed to load Expense");
+        } finally {
+            actionLock.current = false;
+            setActionBusy(false);
+            setEditLoading(false);
         }
     }
 
     // Delete Expense
-    const handleDelete = async (id) => {
+    const handleDelete = (id, type) => {
+        setDeleteExpenseId(id);
+        setDeleteType(type)
+    }
+
+    const confirmDelete = async () => {
+        if (!deleteExpenseId || actionLock.current) return;
+        actionLock.current = true;
+        setActionBusy(true);
         try {
-            await deleteExpense(id);
+            await deleteExpense(deleteExpenseId);
             toast.success("Expense deleted successfully!");
-            fetchExpense(searchCategory, month);
+            setDeleteExpenseId(null);
+            await fetchExpense(searchCategory, month);
         } catch (error) {
             toast.error(error.response?.data?.message || "Failed to delete Expense");
+        } finally {
+            actionLock.current = false;
+            setActionBusy(false);
         }
-
     }
     return (
         <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-8 bg-slate-50/50 min-h-screen overall-bg">
@@ -197,12 +227,43 @@ function Expense() {
                         });
                         setShowModal(true);
                     }}
-                    className="inline-flex items-center justify-center rounded-lg bg-(--primary-color) cursor-pointer px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-(--secondary-color) transition duration-200"
+                    className="inline-flex items-center justify-center rounded-lg bg-(--primary-color) cursor-pointer px-4 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-(--secondary-color) transition duration-200"
                 >
                     <FaPlusCircle size={19} className="pointer-events-none mr-2" /> Add Expense
                 </button>
 
             </div>
+
+            {editLoading && createPortal((
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm" role="status" aria-live="polite">
+                    <div className="flex items-center gap-3 rounded-xl bg-white px-6 py-4 shadow-xl">
+                        <span className="h-6 w-6 animate-spin rounded-full border-2 border-slate-300 border-t-indigo-600" aria-hidden="true" />
+                        <span className="text-sm font-medium text-slate-700">Loading expense...</span>
+                    </div>
+                </div>
+            ), document.body)}
+
+            {deleteExpenseId && createPortal((
+                <div className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-900/50 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="delete-expense-title">
+                    <div className="w-full max-w-sm rounded-xl bg-white p-6 shadow-xl">
+                        {actionBusy ? (
+                            <div className="flex items-center justify-center gap-3 py-2" role="status" aria-live="polite">
+                                <span className="h-6 w-6 animate-spin rounded-full border-2 border-slate-300 border-t-indigo-600" aria-hidden="true" />
+                                <span className="text-sm font-medium text-slate-700">Deleting {delteType}...</span>
+                            </div>
+                        ) : (
+                            <>
+                                <h2 id="delete-expense-title" className="text-lg font-semibold text-slate-900">Delete {delteType}?</h2>
+                                <p className="mt-2 text-sm text-slate-600">Are you sure you want to delete this {delteType}? This action cannot be undone.</p>
+                                <div className="mt-6 flex justify-end gap-3">
+                                    <button type="button" onClick={() => setDeleteExpenseId(null)} className="cursor-pointer rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50">No, cancel</button>
+                                    <button type="button" onClick={confirmDelete} className="cursor-pointer rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700">Yes, delete</button>
+                                </div>
+                            </>
+                        )}
+                    </div>
+                </div>
+            ), document.body)}
 
             {/* Modal Overlay */}
             {showModal && createPortal((
@@ -289,14 +350,14 @@ function Expense() {
                                 <button
                                     type="button"
                                     onClick={() => { setShowModal(false); setEditExpense(null); fetchExpense(searchCategory, month); }}
-                                    className="w-full sm:w-auto cursor-pointer rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50"
+                                    className="w-full sm:w-auto cursor-pointer rounded-lg border border-slate-200 px-4 py-1.5 text-sm font-medium text-slate-600 hover:bg-slate-50"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     type="submit"
                                     disabled={loading}
-                                    className="w-full sm:w-auto cursor-pointer rounded-lg bg-(--primary-color) px-4 py-2.5 text-sm font-medium text-white hover:bg-(--secondary-color) disabled:cursor-not-allowed disabled:opacity-60"
+                                    className="w-full sm:w-auto cursor-pointer rounded-lg bg-(--primary-color) px-4 py-1.5 text-sm font-medium text-white hover:bg-(--secondary-color) disabled:cursor-not-allowed disabled:opacity-60"
                                 >
                                     {loading ? 'Please wait...' : editExpense ? 'Update Expense' : 'Save Expense'}
                                 </button>
@@ -337,25 +398,29 @@ function Expense() {
                                 Expense.map((value, index) => (
                                     <tr key={index} className="hover:bg-slate-50/70 transition-colors dark:hover:bg-slate-800/50">
 
-                                        <td className="whitespace-nowrap px-6 py-2.5 font-medium text-slate-900 dark:text-slate-200">
+                                        <td className="whitespace-nowrap px-6 py-1.5 font-medium text-slate-900 dark:text-slate-200">
                                             {new Date(value.date).toLocaleDateString()}
                                         </td>
-                                        <td className="whitespace-nowrap px-6 py-2.5 font-medium text-slate-900 dark:text-slate-200 capitalize">
+                                        <td className="whitespace-nowrap px-6 py-1.5 font-medium text-slate-900 dark:text-slate-200 capitalize">
                                             {value.type}
                                         </td>
-                                        <td className="whitespace-nowrap px-6 py-2.5 font-medium text-slate-900 dark:text-slate-200 capitalize">
+                                        <td className="whitespace-nowrap px-6 py-1.5 font-medium text-slate-900 dark:text-slate-200 capitalize">
                                             {value.categoryId?.categoryName}
                                         </td>
-                                        <td className="whitespace-nowrap px-6 py-2.5 font-medium text-slate-900 dark:text-slate-200">
+                                        <td className="whitespace-nowrap px-6 py-1.5 font-medium text-slate-900 dark:text-slate-200">
                                             {value.description}
                                         </td>
-                                        <td className="whitespace-nowrap px-6 py-2.5 font-medium text-slate-900 dark:text-slate-200 capitalize">
+                                        <td className="whitespace-nowrap px-6 py-1.5 font-medium text-slate-900 dark:text-slate-200 capitalize">
                                             {int(value.amount)}
                                         </td>
 
-                                        <td className="whitespace-nowrap px-6 py-2.5 flex gap-4">
-                                            <RiEdit2Fill onClick={() => handleEdit(value)} size={19} title="Edit" className="cursor-pointer text-indigo-500 hover:text-indigo-700" />
-                                            <MdDelete onClick={() => handleDelete(value._id)} size={19} title="Delete" className="cursor-pointer text-red-500 hover:text-red-700" />
+                                        <td className="whitespace-nowrap px-6 py-1.5 flex gap-4">
+                                            <button type="button" onClick={() => handleEdit(value)} disabled={actionBusy} aria-label="Edit expense" title="Edit" className="p-1.5 rounded-2xl cursor-pointer text-indigo-500 hover:bg-gray-300 hover:text-black disabled:cursor-not-allowed disabled:opacity-50">
+                                                <RiEdit2Fill size={19} />
+                                            </button>
+                                            <button type="button" onClick={() => handleDelete(value._id, value.type)} disabled={actionBusy} aria-label="Delete expense" title="Delete" className="p-1.5 rounded-2xl cursor-pointer text-red-500 hover:bg-gray-300 hover:text-black disabled:cursor-not-allowed disabled:opacity-50">
+                                                <MdDelete size={19} />
+                                            </button>
                                         </td>
                                     </tr>
                                 ))
