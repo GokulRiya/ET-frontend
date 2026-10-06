@@ -128,7 +128,17 @@ function Login() {
                     <div className="mt-6 text-center">
                         <p className="text-sm">
                             Don't have an account?{" "}
-                            <Link to="/register" className="font-semibold text-(--secondary-color)">
+                            <Link
+                                to="/register"
+                                aria-disabled={loading}
+                                tabIndex={loading ? -1 : undefined}
+                                onClick={(event) => {
+                                    if (loading) event.preventDefault();
+                                }}
+                                className={loading
+                                    ? "pointer-events-none opacity-20 cursor-not-allowed"
+                                    : "font-semibold text-(--secondary-color)"}
+                            >
                                 Create account
                             </Link>
                         </p>
