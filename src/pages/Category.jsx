@@ -284,10 +284,10 @@ function Category() {
                                     <tr key={index} className="hover:bg-slate-50/70 transition-colors dark:hover:bg-slate-800/50">
 
                                         <td className="whitespace-nowrap px-6 py-1.5 font-medium text-slate-900 dark:text-slate-200">
-                                            {value.categoryName}
+                                            {value.categoryName ? value.categoryName : "-"}
                                         </td>
                                         <td className="whitespace-nowrap px-6 py-1.5 font-medium text-slate-900 dark:text-slate-200 capitalize">
-                                            {value.type}
+                                            {value.type ? value.type : "-"}
                                         </td>
                                         <td className="whitespace-nowrap px-6 py-1.5 flex justify-center gap-4">
                                             <button type="button" onClick={() => handleEdit(value)} disabled={actionBusy} aria-label="Edit category" title="Edit" className="p-1.5 rounded-2xl cursor-pointer text-indigo-500 hover:bg-gray-300 hover:text-black disabled:cursor-not-allowed disabled:opacity-50">

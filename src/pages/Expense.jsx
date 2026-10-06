@@ -402,16 +402,16 @@ function Expense() {
                                             {new Date(value.date).toLocaleDateString()}
                                         </td>
                                         <td className="whitespace-nowrap px-6 py-1.5 font-medium text-slate-900 dark:text-slate-200 capitalize">
-                                            {value.type}
+                                            {value.type ? value.type : "-"}
                                         </td>
                                         <td className="whitespace-nowrap px-6 py-1.5 font-medium text-slate-900 dark:text-slate-200 capitalize">
-                                            {value.categoryId?.categoryName}
+                                            {value.categoryId?.categoryName ? value.categoryId?.categoryName : "-"}
                                         </td>
                                         <td className="whitespace-nowrap px-6 py-1.5 font-medium text-slate-900 dark:text-slate-200">
-                                            {value.description}
+                                            {value.description ? value.description : "-"}
                                         </td>
                                         <td className="whitespace-nowrap px-6 py-1.5 font-medium text-slate-900 dark:text-slate-200 capitalize">
-                                            {int(value.amount)}
+                                            {int(value.amount) ? int(value.amount) : "-"}
                                         </td>
 
                                         <td className="whitespace-nowrap px-6 py-1.5 flex gap-4">
