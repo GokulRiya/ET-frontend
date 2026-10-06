@@ -141,39 +141,39 @@ function Category() {
                         <form onSubmit={handleSubmit} className="flex min-h-0 flex-1 flex-col">
                             <div className="min-h-0 flex-1 space-y-4 overflow-y-auto px-4 py-4 sm:px-6">
 
-                            <div>
-                                <label
-                                    className="mb-1 block text-sm font-medium text-gray-700">Category Name</label>
-                                <div className="relative">
-                                    <MdCategory size={19} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
-                                    <input type="text"
-                                        value={newCategory.categoryName}
-                                        onChange={(e) => setNewCategory({ ...newCategory, categoryName: e.target.value })}
-                                        placeholder="Enter your category name"
-                                        required
-                                        className="w-full rounded-lg border border-gray-300 px-4 py-3 pl-10 pr-4 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100" />
+                                <div>
+                                    <label
+                                        className="mb-1 block text-sm font-medium text-gray-700">Category Name</label>
+                                    <div className="relative">
+                                        <MdCategory size={19} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+                                        <input type="text"
+                                            value={newCategory.categoryName}
+                                            onChange={(e) => setNewCategory({ ...newCategory, categoryName: e.target.value })}
+                                            placeholder="Enter your category name"
+                                            required
+                                            className="w-full rounded-lg border border-gray-300 px-4 py-3 pl-10 pr-4 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100" />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div>
-                                <label className="mb-1 block text-sm font-medium text-gray-700">
-                                    Type
-                                </label>
+                                <div>
+                                    <label className="mb-1 block text-sm font-medium text-gray-700">
+                                        Type
+                                    </label>
 
-                                <select
-                                    value={newCategory.type}
-                                    onChange={(e) => setNewCategory({ ...newCategory, type: e.target.value })}
-                                    required
-                                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-(--primary-color) focus:ring-2 focus:ring-(--primary-color)/10"
-                                >
-                                    <option value="">
-                                        Select your type
-                                    </option>
-                                    <option value="income">Income</option>
-                                    <option value="expense">Expense</option>
-                                </select>
+                                    <select
+                                        value={newCategory.type}
+                                        onChange={(e) => setNewCategory({ ...newCategory, type: e.target.value })}
+                                        required
+                                        className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-(--primary-color) focus:ring-2 focus:ring-(--primary-color)/10"
+                                    >
+                                        <option value="">
+                                            Select your type
+                                        </option>
+                                        <option value="income">Income</option>
+                                        <option value="expense">Expense</option>
+                                    </select>
 
-                            </div>
+                                </div>
 
                             </div>
                             <div className="shrink-0 flex flex-col-reverse gap-2 border-t border-slate-100 px-4 py-3 sm:flex-row sm:justify-end sm:gap-3 sm:px-6">
@@ -181,10 +181,13 @@ function Category() {
                                     onClick={() => { setShowModal(false); setEditCategory(null); }}
                                     className="w-full rounded-lg border border-slate-200 cursor-pointer px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 sm:w-auto">
                                     Cancel</button>
-                                <button type="submit"
+                                <button
+                                    type="submit"
                                     disabled={loading}
-                                    className="w-full rounded-lg bg-(--primary-color) cursor-pointer px-4 py-2.5 text-sm font-medium text-white hover:bg-(--secondary-color) sm:w-auto">
-                                    {loading ? 'Please wait...' : editCategory ? 'Update Category' : 'Save Category'}</button>
+                                    className="w-full sm:w-auto cursor-pointer rounded-lg bg-(--primary-color) px-4 py-2.5 text-sm font-medium text-white hover:bg-(--secondary-color) disabled:cursor-not-allowed disabled:opacity-60"
+                                >
+                                    {loading ? 'Please wait...' : editCategory ? 'Update Category' : 'Save Category'}
+                                </button>
                             </div>
                         </form>
                     </div>
