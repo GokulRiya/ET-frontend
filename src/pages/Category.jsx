@@ -151,7 +151,7 @@ function Category() {
                         setNewCategory({ categoryName: '', type: '' });
                         setShowModal(true);
                     }}
-                    className="inline-flex items-center justify-center rounded-lg bg-(--primary-color) cursor-pointer px-4 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-(--secondary-color) transition duration-200"
+                    className="inline-flex items-center justify-center rounded-lg bg-(--primary-color) cursor-pointer px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-(--secondary-color) transition duration-200"
                 >
                     <FaPlusCircle size={19} className="pointer-events-none mr-2" /> Add Category
                 </button>
@@ -200,7 +200,7 @@ function Category() {
                             <h2 className="text-lg font-bold text-slate-900 sm:text-xl">{editCategory ? 'Edit Category' : 'New Category'}</h2>
                         </div>
                         <form onSubmit={handleSubmit} className="flex min-h-0 flex-1 flex-col">
-                            <div className="min-h-0 flex-1 space-y-4 overflow-y-auto px-4 py-4 sm:px-6">
+                            <div className="min-h-0 flex-1 space-y-4 overflow-y-auto px-4 py-2 sm:px-6">
 
                                 <div>
                                     <label
@@ -245,7 +245,7 @@ function Category() {
                                 <button
                                     type="submit"
                                     disabled={loading}
-                                    className="w-full sm:w-auto cursor-pointer rounded-lg bg-(--primary-color) px-4 py-1.5 text-sm font-medium text-white hover:bg-(--secondary-color) disabled:cursor-not-allowed disabled:opacity-60"
+                                    className="w-full sm:w-auto cursor-pointer rounded-lg bg-(--primary-color) px-4 py-3 text-sm font-medium text-white hover:bg-(--secondary-color) disabled:cursor-not-allowed disabled:opacity-60"
                                 >
                                     {loading ? 'Please wait...' : editCategory ? 'Update Category' : 'Save Category'}
                                 </button>

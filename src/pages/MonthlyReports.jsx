@@ -105,7 +105,7 @@ function MonthlyReport() {
             ) : (
                 <>
                     {/* Summary Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                         {/* Income Card */}
                         <div className="relative overflow-hidden bg-white rounded-2xl p-6 border-1 border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] transition-all hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)]">
                             <div className="flex items-center justify-between">
