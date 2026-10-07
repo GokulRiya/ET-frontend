@@ -388,7 +388,7 @@ function Expense() {
                             {loading ? (
                                 <tr>
                                     <td colSpan="6" className="p-6 text-center">
-                                        <div className="flex items-center justify-center gap-2 text-sm text-slate-500" role="status">
+                                        <div className="flex items-center sm:justify-center gap-2 text-sm text-slate-500" role="status">
                                             <span className="h-5 w-5 animate-spin rounded-full border-2 border-slate-300 border-t-indigo-600" aria-hidden="true" />
                                             <span>Loading expenses...</span>
                                         </div>
