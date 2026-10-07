@@ -182,7 +182,7 @@ function Layout() {
                             aria-label="Toggle navigation menu"
                             className="cursor-pointer rounded-full p-1 sm:p-1.5 text-white transition hover:bg-white/10 lg:hidden"
                         >
-                            <CgMenuRightAlt size={24} />
+                            <CgMenuRightAlt size={30} />
                         </button>
                     </div>
                 </header>

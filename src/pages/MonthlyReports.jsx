@@ -181,18 +181,25 @@ function MonthlyReport() {
                     <div className="bg-white rounded-2xl border-1 border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] overflow-hidden">
                         <div className="p-6 border-b border-slate-100 flex items-center justify-between">
                             <h2 className="text-base font-semibold text-slate-900 tracking-tight">
-                                Day Wise Expenses
+                                Day wise expenses
                             </h2>
                         </div>
                         <div className="overflow-x-auto">
-                            <table className="w-full text-left text-sm text-slate-600">
+                            <table className="w-full min-w-[900px] table-fixed border-collapse text-left text-sm">
+                                <colgroup>
+                                    <col className="w-[120px]" />
+                                    <col className="w-[150px]" />
+                                    <col className="w-[140px]" />
+                                    <col className="w-[250px]" />
+                                    <col className="w-[120px]" />
+                                </colgroup>
                                 <thead className="bg-slate-50/75 border-b border-slate-100 text-xs font-semibold tracking-wider text-slate-500">
                                     <tr>
-                                        <th className="py-2.5 px-6">Date</th>
-                                        <th className="py-2.5 px-6">Category</th>
-                                        <th className="py-2.5 px-6">Type</th>
-                                        <th className="py-2.5 px-6">Description</th>
-                                        <th className="py-2.5 px-6 text-right">Amount</th>
+                                        <th scope="col" className="py-2.5 px-6">Date</th>
+                                        <th scope="col" className="py-2.5 px-6">Category</th>
+                                        <th scope="col" className="py-2.5 px-6">Type</th>
+                                        <th scope="col" className="py-2.5 px-6">Description</th>
+                                        <th scope="col" className="py-2.5 px-6 text-right">Amount (₹)</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-100">
@@ -221,11 +228,11 @@ function MonthlyReport() {
                                                         {item.type}
                                                     </span>
                                                 </td>
-                                                <td className="py-2.5 px-6 text-slate-500 max-w-xs truncate">
-                                                    {item.description || "-"}
+                                                <td className="py-2.5 px-6 text-slate-500 max-w-xs truncate" title={item.description}>
+                                                    {item.description.length > 40 ? `${item.description.slice(0, 40)}...` : item.description || "-"}
                                                 </td>
                                                 <td className="py-2.5 px-6 text-right font-semibold text-slate-900 tabular-nums">
-                                                    {int(item.amount)}
+                                                    {item.amount}
                                                 </td>
                                             </tr>
                                         ))

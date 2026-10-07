@@ -52,7 +52,7 @@ function Expense() {
         setMonth(selected);
     };
 
-    const int = (n) => "₹" + n.toLocaleString("en-IN");
+    const int = (n) => n.toLocaleString("en-IN");
 
     // Fetch Expense
     const fetchExpense = async (search = "", month = '') => {
@@ -370,15 +370,23 @@ function Expense() {
             {/* Table Container with modern shadows & rounding */}
             <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900 mb-4">
                 <div className="overflow-x-auto">
-                    <table className="w-full border-collapse text-left text-sm">
+                    <table className="w-full min-w-[900px] table-fixed border-collapse text-left text-sm">
+                        <colgroup>
+                            <col className="w-[120px]" />
+                            <col className="w-[140px]" />
+                            <col className="w-[120px]" />
+                            <col className="w-[100px]" />
+                            <col className="w-[320px]" />
+                            <col className="w-[100px]" />
+                        </colgroup>
                         {/* Table Header */}
                         <thead className="bg-gray-100 dark:bg-slate-800">
                             <tr>
                                 <th scope="col" className="dark:text-gray-300 px-6 py-4">Date</th>
-                                <th scope="col" className="dark:text-gray-300 px-6 py-4">Type</th>
+                                <th scope="col" className="dark:text-gray-300 px-6 py-4">Amount (₹)</th>
                                 <th scope="col" className="dark:text-gray-300 px-6 py-4">Category</th>
+                                <th scope="col" className="dark:text-gray-300 px-6 py-4">Type</th>
                                 <th scope="col" className="dark:text-gray-300 px-6 py-4">Description</th>
-                                <th scope="col" className="dark:text-gray-300 px-6 py-4">Amount</th>
                                 <th scope="col" className="dark:text-gray-300 px-6 py-4">Action</th>
                             </tr>
                         </thead>
@@ -401,19 +409,22 @@ function Expense() {
                                         <td className="whitespace-nowrap px-6 py-1.5 font-medium text-slate-900 dark:text-slate-200">
                                             {new Date(value.date).toLocaleDateString()}
                                         </td>
-                                        <td className="whitespace-nowrap px-6 py-1.5 font-medium text-slate-900 dark:text-slate-200 capitalize">
-                                            {value.type ? value.type : "-"}
+                                        <td className="whitespace-nowrap px-6 py-1.5 font-semibold text-slate-900 tabular-nums dark:text-slate-200 capitalize">
+                                            {int(value.amount) ? int(value.amount) : "-"}
                                         </td>
                                         <td className="whitespace-nowrap px-6 py-1.5 font-medium text-slate-900 dark:text-slate-200 capitalize">
                                             {value.categoryId?.categoryName ? value.categoryId?.categoryName : "-"}
                                         </td>
-                                        <td className="whitespace-nowrap px-6 py-1.5 font-medium text-slate-900 dark:text-slate-200">
-                                            {value.description ? value.description : "-"}
-                                        </td>
                                         <td className="whitespace-nowrap px-6 py-1.5 font-medium text-slate-900 dark:text-slate-200 capitalize">
-                                            {int(value.amount) ? int(value.amount) : "-"}
+                                            {value.type ? value.type : "-"}
                                         </td>
-
+                                        <td className="whitespace-nowrap px-6 py-1.5 font-medium text-slate-900 dark:text-slate-200" title={value.description}>
+                                            {value.description
+                                                ? value.description.length > 40
+                                                    ? `${value.description.slice(0, 40)}...`
+                                                    : value.description
+                                                : "-"}
+                                        </td>
                                         <td className="whitespace-nowrap px-6 py-1.5 flex gap-4">
                                             <button type="button" onClick={() => handleEdit(value)} disabled={actionBusy} aria-label="Edit expense" title="Edit" className="p-1.5 rounded-2xl cursor-pointer text-indigo-500 hover:bg-gray-300 hover:text-black disabled:cursor-not-allowed disabled:opacity-50">
                                                 <RiEdit2Fill size={19} />
