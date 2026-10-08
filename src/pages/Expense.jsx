@@ -346,11 +346,11 @@ function Expense() {
                             </div>
 
                             {/* Pinned footer */}
-                            <div className="shrink-0 flex flex-col-reverse gap-2 border-t border-slate-100 px-4 py-3 sm:flex-row sm:justify-end sm:gap-3 sm:px-6 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+                            <div className="shrink-0 flex flex-col-reverse gap-2 border-t border-slate-100 px-4 py-3 sm:flex-row sm:justify-end sm:gap-3 sm:px-6 )]">
                                 <button
                                     type="button"
                                     onClick={() => { setShowModal(false); setEditExpense(null); fetchExpense(searchCategory, month); }}
-                                    className="w-full sm:w-auto cursor-pointer rounded-lg border border-slate-200 px-4 py-1.5 text-sm font-medium text-slate-600 hover:bg-slate-50"
+                                    className="w-full sm:w-auto cursor-pointer rounded-lg border border-slate-200 px-4 py-3 text-sm font-medium text-slate-600 hover:bg-slate-50"
                                 >
                                     Cancel
                                 </button>
@@ -426,10 +426,10 @@ function Expense() {
                                                 : "-"}
                                         </td>
                                         <td className="whitespace-nowrap px-6 py-1.5 flex gap-4">
-                                            <button type="button" onClick={() => handleEdit(value)} disabled={actionBusy} aria-label="Edit expense" title="Edit" className="p-1.5 rounded-2xl cursor-pointer text-indigo-500 hover:bg-gray-300 hover:text-black disabled:cursor-not-allowed disabled:opacity-50">
+                                            <button type="button" onClick={() => handleEdit(value)} disabled={actionBusy} aria-label="Edit expense" title="Edit" className="p-1.5 rounded-xl cursor-pointer text-indigo-500 hover:bg-gray-200 hover:text-black disabled:cursor-not-allowed disabled:opacity-50">
                                                 <RiEdit2Fill size={19} />
                                             </button>
-                                            <button type="button" onClick={() => handleDelete(value._id, value.type)} disabled={actionBusy} aria-label="Delete expense" title="Delete" className="p-1.5 rounded-2xl cursor-pointer text-red-500 hover:bg-gray-300 hover:text-black disabled:cursor-not-allowed disabled:opacity-50">
+                                            <button type="button" onClick={() => handleDelete(value._id, value.type)} disabled={actionBusy} aria-label="Delete expense" title="Delete" className="p-1.5 rounded-xl cursor-pointer text-red-500 hover:bg-gray-300 hover:text-black disabled:cursor-not-allowed disabled:opacity-50">
                                                 <MdDelete size={19} />
                                             </button>
                                         </td>

@@ -240,7 +240,7 @@ function Category() {
                             <div className="shrink-0 flex flex-col-reverse gap-2 border-t border-slate-100 px-4 py-3 sm:flex-row sm:justify-end sm:gap-3 sm:px-6">
                                 <button type="button"
                                     onClick={() => { setShowModal(false); setEditCategory(null); }}
-                                    className="w-full rounded-lg border border-slate-200 cursor-pointer px-4 py-1.5 text-sm font-medium text-slate-600 hover:bg-slate-50 sm:w-auto">
+                                    className="w-full rounded-lg border border-slate-200 cursor-pointer px-4 py-3 text-sm font-medium text-slate-600 hover:bg-slate-50 sm:w-auto">
                                     Cancel</button>
                                 <button
                                     type="submit"
@@ -290,10 +290,10 @@ function Category() {
                                             {value.type ? value.type : "-"}
                                         </td>
                                         <td className="whitespace-nowrap px-6 py-1.5 flex justify-center gap-4">
-                                            <button type="button" onClick={() => handleEdit(value)} disabled={actionBusy} aria-label="Edit category" title="Edit" className="p-1.5 rounded-2xl cursor-pointer text-indigo-500 hover:bg-gray-300 hover:text-black disabled:cursor-not-allowed disabled:opacity-50">
+                                            <button type="button" onClick={() => handleEdit(value)} disabled={actionBusy} aria-label="Edit category" title="Edit" className="p-1.5 rounded-xl cursor-pointer text-indigo-500 hover:bg-gray-200 hover:text-black disabled:cursor-not-allowed disabled:opacity-50">
                                                 <RiEdit2Fill size={19} />
                                             </button>
-                                            <button type="button" onClick={() => handleDelete(value._id)} disabled={actionBusy} aria-label="Delete category" title="Delete" className="p-1.5 rounded-2xl cursor-pointer text-red-500 hover:bg-gray-300 hover:text-black disabled:cursor-not-allowed disabled:opacity-50">
+                                            <button type="button" onClick={() => handleDelete(value._id)} disabled={actionBusy} aria-label="Delete category" title="Delete" className="p-1.5 rounded-xl cursor-pointer text-red-500 hover:bg-gray-200 hover:text-black disabled:cursor-not-allowed disabled:opacity-50">
                                                 <MdDelete size={19} />
                                             </button>
                                         </td>
