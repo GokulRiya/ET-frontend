@@ -8,6 +8,9 @@ import { MdDelete, MdDateRange } from "react-icons/md"
 import { BsCalendar2MonthFill } from "react-icons/bs"
 import { getCategorys } from "../services/categoryService"
 
+const formatTransactionType = (type) =>
+    type === "income" ? "Income" : type === "expense" ? "Expense" : "Transaction";
+
 function Expense() {
     const [loading, setLoading] = useState(true);
     const [actionBusy, setActionBusy] = useState(false);
@@ -18,7 +21,7 @@ function Expense() {
     const [categories, setCategories] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [deleteExpenseId, setDeleteExpenseId] = useState(null);
-    const [delteType, setDeleteType] = useState(null)
+    const [deleteType, setDeleteType] = useState(null)
     const [newExpense, setNewExpense] = useState(
         {
             categoryId: '',
@@ -30,6 +33,10 @@ function Expense() {
     const [searchCategory, setSearchCategory] = useState("");
     const [month, setMonth] = useState(new Date().toISOString().slice(0, 7));
     const today = new Date();
+    const selectedTransactionType =
+        categories.find((category) => category._id === newExpense.categoryId)?.type ||
+        editExpense?.type;
+    const transactionLabel = formatTransactionType(selectedTransactionType);
 
     const minMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1).toISOString().slice(0, 7);
     const maxMonth = today.toISOString().slice(0, 7);
@@ -99,18 +106,18 @@ function Expense() {
         if (loading || submitLock.current) return;
         submitLock.current = true;
         setLoading(true);
+        const typeLabel = transactionLabel;
         try {
-            let response;
-            if (editExpense) {
-                response = await updateExpense(editExpense._id, newExpense);
-            } else {
-                response = await createExpense(newExpense);
-            }
+            const response = editExpense
+                ? await updateExpense(editExpense._id, newExpense)
+                : await createExpense(newExpense);
+
             if (!response.success) {
-                toast.error(response.message || "Expense already exists");
+                toast.error(response.message || `${typeLabel} could not be saved`);
                 return;
             }
-            toast.success(editExpense ? "Expense updated successfully!" : "Expense added successfully!");
+
+            toast.success(response.message || `${typeLabel} ${editExpense ? "updated" : "created"} successfully!`);
             setShowModal(false);
             setEditExpense(null);
             setNewExpense({
@@ -121,7 +128,7 @@ function Expense() {
             });
             await fetchExpense(searchCategory, month);
         } catch (error) {
-            toast.error(error.response?.data?.message || (editExpense ? "Failed to update Expense" : "Failed to add Expense"));
+            toast.error(error.response?.data?.message || `${typeLabel} failed to ${editExpense ? "update" : "create"}`);
         } finally {
             submitLock.current = false;
             setLoading(false);
@@ -149,7 +156,7 @@ function Expense() {
                 description: data.description
             });
         } catch (error) {
-            toast.error(error.response?.data?.message || "Failed to load Expense");
+            toast.error(error.response?.data?.message || `Failed to load ${formatTransactionType(e.type).toLowerCase()}`);
         } finally {
             actionLock.current = false;
             setActionBusy(false);
@@ -167,13 +174,14 @@ function Expense() {
         if (!deleteExpenseId || actionLock.current) return;
         actionLock.current = true;
         setActionBusy(true);
+        const typeLabel = formatTransactionType(deleteType);
         try {
-            await deleteExpense(deleteExpenseId);
-            toast.success("Expense deleted successfully!");
+            const response = await deleteExpense(deleteExpenseId);
+            toast.success(response.message || `${typeLabel} deleted successfully!`);
             setDeleteExpenseId(null);
             await fetchExpense(searchCategory, month);
         } catch (error) {
-            toast.error(error.response?.data?.message || "Failed to delete Expense");
+            toast.error(error.response?.data?.message || `Failed to delete ${typeLabel.toLowerCase()}`);
         } finally {
             actionLock.current = false;
             setActionBusy(false);
@@ -186,7 +194,7 @@ function Expense() {
                 <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">Income / Expense</h1>
                 <p className="mt-1 text-sm text-slate-500">Manage income and expense records registered under your administration.</p>
             </div>
-            {/* Button to trigger Add Expense Modal */}
+            {/* Button to trigger Add Transaction Modal */}
             <div className="flex flex-col md:flex-row justify-end gap-4 mb-4">
                 {/* Button to trigger Add Category Modal */}
                 <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
@@ -229,7 +237,7 @@ function Expense() {
                     }}
                     className="inline-flex items-center justify-center rounded-lg bg-(--primary-color) cursor-pointer px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-(--secondary-color) transition duration-200"
                 >
-                    <FaPlusCircle size={19} className="pointer-events-none mr-2" /> Add Expense
+                    <FaPlusCircle size={19} className="pointer-events-none mr-2" /> Add Income / Expense
                 </button>
 
             </div>
@@ -238,7 +246,7 @@ function Expense() {
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm" role="status" aria-live="polite">
                     <div className="flex items-center gap-3 rounded-xl bg-white px-6 py-4 shadow-xl">
                         <span className="h-6 w-6 animate-spin rounded-full border-2 border-slate-300 border-t-indigo-600" aria-hidden="true" />
-                        <span className="text-sm font-medium text-slate-700">Loading expense...</span>
+                        <span className="text-sm font-medium text-slate-700">Loading transaction...</span>
                     </div>
                 </div>
             ), document.body)}
@@ -249,12 +257,12 @@ function Expense() {
                         {actionBusy ? (
                             <div className="flex items-center justify-center gap-3 py-2" role="status" aria-live="polite">
                                 <span className="h-6 w-6 animate-spin rounded-full border-2 border-slate-300 border-t-indigo-600" aria-hidden="true" />
-                                <span className="text-sm font-medium text-slate-700">Deleting {delteType}...</span>
+                                <span className="text-sm font-medium text-slate-700">Deleting {formatTransactionType(deleteType).toLowerCase()}...</span>
                             </div>
                         ) : (
                             <>
-                                <h2 id="delete-expense-title" className="text-lg font-semibold text-slate-900">Delete {delteType}?</h2>
-                                <p className="mt-2 text-sm text-slate-600">Are you sure you want to delete this {delteType}? This action cannot be undone.</p>
+                                <h2 id="delete-expense-title" className="text-lg font-semibold text-slate-900">Delete {formatTransactionType(deleteType)}?</h2>
+                                <p className="mt-2 text-sm text-slate-600">Are you sure you want to delete this {formatTransactionType(deleteType).toLowerCase()}? This action cannot be undone.</p>
                                 <div className="mt-6 flex justify-end gap-3">
                                     <button type="button" onClick={() => setDeleteExpenseId(null)} className="cursor-pointer rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50">No, cancel</button>
                                     <button type="button" onClick={confirmDelete} className="cursor-pointer rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700">Yes, delete</button>
@@ -273,7 +281,7 @@ function Expense() {
                         {/* Header */}
                         <div className="shrink-0 border-b border-slate-100 px-4 py-3 sm:px-6">
                             <h2 className="text-lg sm:text-xl font-bold text-slate-900">
-                                {editExpense ? 'Edit Expense' : 'New Expense'}
+                                {editExpense ? `Edit ${transactionLabel}` : `New ${transactionLabel}`}
                             </h2>
                         </div>
 
@@ -359,7 +367,7 @@ function Expense() {
                                     disabled={loading}
                                     className="w-full sm:w-auto cursor-pointer rounded-lg bg-(--primary-color) px-4 py-3 text-sm font-medium text-white hover:bg-(--secondary-color) disabled:cursor-not-allowed disabled:opacity-60"
                                 >
-                                    {loading ? 'Please wait...' : editExpense ? 'Update Expense' : 'Save Expense'}
+                                    {loading ? 'Please wait...' : editExpense ? `Update ${transactionLabel}` : `Save ${transactionLabel}`}
                                 </button>
                             </div>
                         </form>
@@ -398,7 +406,7 @@ function Expense() {
                                     <td colSpan="6" className="p-6 text-center">
                                         <div className="flex items-center sm:justify-center gap-2 text-sm text-slate-500" role="status">
                                             <span className="h-5 w-5 animate-spin rounded-full border-2 border-slate-300 border-t-indigo-600" aria-hidden="true" />
-                                            <span>Loading expenses...</span>
+                                            <span>Loading income and expenses...</span>
                                         </div>
                                     </td>
                                 </tr>
@@ -426,10 +434,10 @@ function Expense() {
                                                 : "-"}
                                         </td>
                                         <td className="whitespace-nowrap px-6 py-1.5 flex gap-4">
-                                            <button type="button" onClick={() => handleEdit(value)} disabled={actionBusy} aria-label="Edit expense" title="Edit" className="p-1.5 rounded-xl cursor-pointer text-indigo-500 hover:bg-gray-200 hover:text-black disabled:cursor-not-allowed disabled:opacity-50">
+                                            <button type="button" onClick={() => handleEdit(value)} disabled={actionBusy} aria-label={`Edit ${value.type}`} title="Edit" className="p-1.5 rounded-xl cursor-pointer text-indigo-500 hover:bg-gray-200 hover:text-black disabled:cursor-not-allowed disabled:opacity-50">
                                                 <RiEdit2Fill size={19} />
                                             </button>
-                                            <button type="button" onClick={() => handleDelete(value._id, value.type)} disabled={actionBusy} aria-label="Delete expense" title="Delete" className="p-1.5 rounded-xl cursor-pointer text-red-500 hover:bg-gray-300 hover:text-black disabled:cursor-not-allowed disabled:opacity-50">
+                                            <button type="button" onClick={() => handleDelete(value._id, value.type)} disabled={actionBusy} aria-label={`Delete ${value.type}`} title="Delete" className="p-1.5 rounded-xl cursor-pointer text-red-500 hover:bg-gray-300 hover:text-black disabled:cursor-not-allowed disabled:opacity-50">
                                                 <MdDelete size={19} />
                                             </button>
                                         </td>
