@@ -4,7 +4,7 @@ import { getCategorys, createCategory, getCategoryById, updateCategory, deleteCa
 import { toast } from 'react-toastify'
 import { FaPlusCircle } from "react-icons/fa"
 import { RiEdit2Fill } from "react-icons/ri"
-import { MdDelete, MdCategory } from "react-icons/md"
+import { MdDelete, MdCategory, MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight } from "react-icons/md"
 import { FaSearch } from "react-icons/fa"
 
 function Category() {
@@ -20,8 +20,16 @@ function Category() {
     const [editCategory, setEditCategory] = useState(null);
     const [searchCategory, setSearchCategory] = useState('');
 
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const itemsPerPage = 10;
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const totalPages = Math.max(1, Math.ceil(category.length / itemsPerPage));
+    const currentCategories = category.slice(startIndex, startIndex + itemsPerPage);
+
     // Fetch Category
     const fetchCategory = async (search = "") => {
+        setCurrentPage(1);
         setLoading(true);
         try {
             const response = await getCategorys(search);
@@ -139,7 +147,10 @@ function Category() {
                         <FaSearch size={19} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
                         <input type="text"
                             value={searchCategory}
-                            onChange={(e) => setSearchCategory(e.target.value)}
+                            onChange={(e) => {
+                                setSearchCategory(e.target.value);
+                                setCurrentPage(1);
+                            }}
                             placeholder="Search category, type"
                             required
                             className="w-full rounded-lg border border-gray-300 px-4 py-3 pl-10 pr-4 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100" />
@@ -279,9 +290,9 @@ function Category() {
                                         </div>
                                     </td>
                                 </tr>
-                            ) : category && category.length > 0 ? (
-                                category.map((value, index) => (
-                                    <tr key={index} className="hover:bg-slate-50/70 transition-colors dark:hover:bg-slate-800/50">
+                            ) : currentCategories.length > 0 ? (
+                                currentCategories.map((value) => (
+                                    <tr key={value._id} className="hover:bg-slate-50/70 transition-colors dark:hover:bg-slate-800/50">
 
                                         <td className="whitespace-nowrap px-6 py-1.5 font-medium text-slate-900 dark:text-slate-200">
                                             {value.categoryName ? value.categoryName : "-"}
@@ -309,6 +320,35 @@ function Category() {
                             )}
                         </tbody>
                     </table>
+                    {!loading && category.length > 0 && (
+                        <div className="flex items-center justify-between border-t border-slate-200 px-4 py-3 text-sm dark:border-slate-800">
+                            <span className="text-slate-500">
+                                Showing {startIndex + 1}-{Math.min(startIndex + itemsPerPage, category.length)} of {category.length}
+                            </span>
+                            <div className="flex items-center gap-3">
+                                <button
+                                    type="button"
+                                    disabled={currentPage === 1}
+                                    onClick={() => setCurrentPage((page) => page - 1)}
+                                    className="rounded-md border border-slate-300 cursor-pointer     px-3 py-1.5 text-slate-700 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:text-slate-300"
+                                >
+                                    <MdKeyboardDoubleArrowLeft  size={19}/>
+                                </button>
+
+                                <span className="text-slate-600 dark:text-slate-300">
+                                    Page {currentPage} of {totalPages}
+                                </span>
+                                <button
+                                    type="button"
+                                    disabled={currentPage === totalPages}
+                                    onClick={() => setCurrentPage((page) => page + 1)}
+                                    className="rounded-md border border-slate-300 cursor-pointer     px-3 py-1.5 text-slate-700 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:text-slate-300"
+                                >
+                                    <MdKeyboardDoubleArrowRight  size={19}/>
+                                </button>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
