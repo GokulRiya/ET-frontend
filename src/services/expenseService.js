@@ -5,8 +5,8 @@ export const createExpense = async (data) => {
     return response.data;
 }
 
-export const getExpenses = async (search, month) => {
-    const response = await api.get("/expenses", { params: { search, month } });
+export const getExpenses = async (search, month, page, limit) => {
+    const response = await api.get("/expenses", { params: { search, month, page, limit } });
     return response.data;
 }
 

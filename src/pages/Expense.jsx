@@ -18,6 +18,9 @@ function Expense() {
     const actionLock = useRef(false);
     const submitLock = useRef(false);
     const [Expense, setExpense] = useState([]);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
+    const [totalExpenses, setTotalExpenses] = useState(0);
     const [categories, setCategories] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [deleteExpenseId, setDeleteExpenseId] = useState(null);
@@ -35,12 +38,8 @@ function Expense() {
     const today = new Date();
     const selectedTransactionType = categories.find((category) => category._id === newExpense.categoryId)?.type || editExpense?.type;
     const transactionLabel = formatTransactionType(selectedTransactionType);
-    const [currentPage, setCurrentPage] = useState(1);
 
-    const itemsPerPage = 10;
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const totalPages = Math.max(1, Math.ceil(Expense.length / itemsPerPage));
-    const currentExpenses = Expense.slice(startIndex, startIndex + itemsPerPage);
+    const limit = 10;
 
     const minMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1).toISOString().slice(0, 7);
     const maxMonth = today.toISOString().slice(0, 7);
@@ -69,9 +68,12 @@ function Expense() {
     const fetchExpense = async (search = "", month = '') => {
         setLoading(true);
         try {
-            const response = await getExpenses(search, month);
+            const response = await getExpenses(search, month, page, limit);
             if (response && response.data) {
-                setExpense(response.data);
+                setExpense(response.data.res);
+                setPage(response.data.page);
+                setTotalPages(response.data.totalPages);
+                setTotalExpenses(response.data.totalExpenses);
             }
         } catch (error) {
             toast.error(error.response?.data?.message || error.message || 'Fetch failed!');
@@ -102,7 +104,7 @@ function Expense() {
             fetchExpense(searchCategory, month);
         }
 
-    }, [searchCategory, month]);
+    }, [searchCategory, month, page]);
 
     // Handle form submit for adding a Expense
     const handleSubmit = async (e) => {
@@ -414,8 +416,8 @@ function Expense() {
                                         </div>
                                     </td>
                                 </tr>
-                            ) : currentExpenses && currentExpenses.length > 0 ? (
-                                currentExpenses.map((value, index) => (
+                            ) : Expense && Expense.length > 0 ? (
+                                Expense.map((value, index) => (
                                     <tr key={index} className="hover:bg-slate-50/70 transition-colors dark:hover:bg-slate-800/50">
 
                                         <td className="whitespace-nowrap px-6 py-1.5 font-medium text-slate-900 dark:text-slate-200">
@@ -460,25 +462,25 @@ function Expense() {
                     {!loading && Expense.length > 0 && (
                         <div className="flex items-center justify-between border-t border-slate-200 px-4 py-3 text-sm dark:border-slate-800">
                             <span className="text-slate-500">
-                                Showing {startIndex + 1}-{Math.min(startIndex + itemsPerPage, Expense.length)} of {Expense.length}
+                                Showing {(page - 1) * limit + 1}-{Math.min(page * limit, totalExpenses)} of {totalExpenses}
                             </span>
                             <div className="flex items-center gap-3">
                                 <button
                                     type="button"
-                                    disabled={currentPage === 1}
-                                    onClick={() => setCurrentPage((page) => page - 1)}
+                                    disabled={page === 1}
+                                    onClick={() => setPage((page) => page - 1)}
                                     className="rounded-md border border-slate-300 cursor-pointer px-3 py-1.5 text-slate-700 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:text-slate-300"
                                 >
                                     <MdKeyboardDoubleArrowLeft size={19} />
                                 </button>
 
                                 <span className="text-slate-600 dark:text-slate-300">
-                                    Page {currentPage} of {totalPages}
+                                    Page {page} of {totalPages}
                                 </span>
                                 <button
                                     type="button"
-                                    disabled={currentPage === totalPages}
-                                    onClick={() => setCurrentPage((page) => page + 1)}
+                                    disabled={page === totalPages}
+                                    onClick={() => setPage((page) => page + 1)}
                                     className="rounded-md border border-slate-300 cursor-pointer px-3 py-1.5 text-slate-700 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:text-slate-300"
                                 >
                                     <MdKeyboardDoubleArrowRight size={19} />

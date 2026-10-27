@@ -5,8 +5,8 @@ export const createCategory = async (data) => {
     return response.data;
 }
 
-export const getCategorys = async (search) => {
-    const response = await api.get("/category", { params: { search } });
+export const getCategorys = async (search, page, limit) => {
+    const response = await api.get("/category", { params: { search, page, limit } });
     return response.data;
 }
 
