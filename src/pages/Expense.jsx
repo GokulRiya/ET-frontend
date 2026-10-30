@@ -87,7 +87,7 @@ function Expense() {
         try {
             const response = await getCategorys({});
             if (response && response.data) {
-                setCategories(response.data);
+                setCategories(response.data.res);
             }
         } catch (error) {
             toast.error(error.response?.data?.message || error.message || 'Fetch failed!');
