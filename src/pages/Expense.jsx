@@ -6,7 +6,7 @@ import { FaPlusCircle, FaRupeeSign, FaSearch } from "react-icons/fa"
 import { RiEdit2Fill } from "react-icons/ri"
 import { MdDelete, MdDateRange, MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight } from "react-icons/md"
 import { BsCalendar2MonthFill } from "react-icons/bs"
-import { getCategorys } from "../services/categoryService"
+import { getAllCategory } from "../services/categoryService"
 
 const formatTransactionType = (type) =>
     type === "income" ? "Income" : type === "expense" ? "Expense" : "Transaction";
@@ -85,9 +85,9 @@ function Expense() {
     // Fetch  Expense
     const fetchCategory = async () => {
         try {
-            const response = await getCategorys({});
+            const response = await getAllCategory();
             if (response && response.data) {
-                setCategories(response.data.res);
+                setCategories(response.data);
             }
         } catch (error) {
             toast.error(error.response?.data?.message || error.message || 'Fetch failed!');

@@ -5,6 +5,11 @@ export const createCategory = async (data) => {
     return response.data;
 }
 
+export const getAllCategory = async () => {
+    const response = await api.get("/category/categoryAll");
+    return response.data;
+}
+
 export const getCategorys = async (search, page, limit) => {
     const response = await api.get("/category", { params: { search, page, limit } });
     return response.data;
