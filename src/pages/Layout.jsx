@@ -1,11 +1,12 @@
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom"
 import { logout } from "../services/authService"
 import { toast } from "react-toastify"
-import { BsGridFill } from "react-icons/bs"
-import { MdCategory } from "react-icons/md"
-import { FaRupeeSign, FaSignOutAlt } from "react-icons/fa"
+import { MdDashboard } from "react-icons/md";
+import { LuArrowLeftRight } from "react-icons/lu";
+import { BiCategoryAlt } from "react-icons/bi";
+import { HiOutlineChartBar } from "react-icons/hi2";
+import { FaSignOutAlt } from "react-icons/fa"
 import { CgMenuRightAlt } from "react-icons/cg"
-import { HiDocumentChartBar } from "react-icons/hi2"
 import { useState, useRef, useEffect } from "react"
 
 function Layout() {
@@ -32,23 +33,23 @@ function Layout() {
         {
             name: "Dashboard",
             path: "/dashboard",
-            icon: <BsGridFill />,
+            icon: <MdDashboard />,
         },
         {
             name: "Incomes / Expenses",
             path: "/expense",
-            icon: <FaRupeeSign />,
+            icon: <LuArrowLeftRight />,
         },
         {
             name: "Categories",
             path: "/category",
-            icon: <MdCategory />,
+            icon: <BiCategoryAlt />,
         },
         {
             name: "Monthly Reports",
             path: "/monthly-report",
-            icon: <HiDocumentChartBar />,
-        },
+            icon: <HiOutlineChartBar />,
+        }
     ];
 
     const handleNavbar = () => setShowNavbar((isOpen) => !isOpen);
