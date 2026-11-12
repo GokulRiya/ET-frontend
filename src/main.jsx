@@ -7,6 +7,24 @@ import 'react-toastify/dist/ReactToastify.css'
 import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
 
+import { registerSW } from 'virtual:pwa-register'
+
+registerSW({
+  immediate: true,
+
+  onOfflineReady() {
+    console.log('Application is ready to work offline!')
+  },
+
+  onRegisteredSW(swUrl, registration) {
+    console.log('Service Worker registered:', swUrl)
+  },
+
+  onRegisterError(error) {
+    console.error('Service Worker registration failed:', error)
+  }
+})
+
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <App />
