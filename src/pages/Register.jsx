@@ -7,7 +7,6 @@ import {
 import { Link } from "react-router-dom"
 import { register } from "../services/authService"
 import { toast } from "react-toastify"
-import logo from "../../public/assets/icon-192.webp"
 import { useNavigate } from "react-router-dom"
 
 function Register() {
@@ -49,12 +48,19 @@ function Register() {
 
                     {/* Logo / Brand */}
                     <div className="text-center mb-8">
-                        <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-2xl shadow-lg">
-                            <img src={logo} alt="logo" className="rounded-2xl" />
+                        <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-2xl shadow-lg overflow-hidden">
+                            <video
+                                src="/assets/logo.mp4"
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                className="h-full w-full object-cover"
+                            />
                         </div>
 
                         <p className="text-(--primary-color) text-2xl font-extrabold leading-tight mb-3">
-                            Join the <span className="text-(--secondary-color)">ETS</span> team.
+                            Join the <span className="text-(--secondary-color)">Expenslytic</span> team.
                         </p>
 
                         <p className="mt-2 text-sm text-gray-500">

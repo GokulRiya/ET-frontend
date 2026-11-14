@@ -1,5 +1,4 @@
 import { useState } from "react"
-import logo from "../../public/assets/icon-192.webp"
 import {
     BsFillEnvelopeFill,
     BsEyeSlashFill, BsEye,
@@ -43,16 +42,23 @@ function Login() {
 
                 {/* Logo / Brand */}
                 <div className="text-center mb-8">
-                    <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-2xl shadow-lg">
-                        <img src={logo} alt="logo" className="rounded-2xl" />
+                    <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-2xl shadow-lg overflow-hidden">
+                        <video
+                            src="/assets/logo.mp4"
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            className="h-full w-full object-cover"
+                        />
                     </div>
 
                     <h1 className="text-2xl font-bold text-(--primary-color) sm:text-3xl">
-                        Welcome Back
+                        Welcome Back!
                     </h1>
 
-                    <p className="mt-2 text-sm text-(--secondary-color) ">
-                        Login to your ETS account
+                    <p className="mt-2 text-sm text-(--secondary-color)">
+                        Please log in to continue to your Expenslytic account.
                     </p>
                 </div>
 

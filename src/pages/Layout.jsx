@@ -71,10 +71,13 @@ function Layout() {
                 {/* Logo */}
                 <div className="h-16 flex items-center justify-start px-6 gap-3 border-b border-white/10">
                     <Link to="/dashboard" onClick={() => setShowNavbar(false)} className="flex items-center gap-3">
-                        <img
-                            src={"/assets/icon-192.webp"}
-                            alt="logo"
-                            className="h-10 w-10 object-contain rounded-xl bg-white shadow-sm transition-transform hover:scale-105 duration-200"
+                        <video
+                            src="/assets/logo.mp4"
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            className="h-10 w-10 object-cover rounded-xl bg-white shadow-sm transition-transform hover:scale-105 duration-200"
                         />
                         <span className="text-md font-bold tracking-tight text-white">Expense Analytics</span>
                     </Link>
@@ -146,10 +149,13 @@ function Layout() {
                             onClick={() => setShowNavbar(false)}
                             className="flex lg:hidden items-center gap-3"
                         >
-                            <img
-                                src="/assets/icon-192.webp"
-                                alt="logo"
-                                className="h-10 w-10 rounded-xl bg-white object-contain shadow-sm transition-transform duration-200 hover:scale-105"
+                            <video
+                                src="/assets/logo.mp4"
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                className="h-10 w-10 rounded-xl bg-white object-cover shadow-sm transition-transform duration-200 hover:scale-105"
                             />
                             <span className="text-md font-bold tracking-tight text-white">
                                 Expense Analytics
