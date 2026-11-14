@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard"
 import Category from "./pages/Category"
 import Expense from "./pages/Expense"
 import MonthlyReports from "./pages/MonthlyReports"
+import Profile from "./pages/Profile"
 import UnAuthorized from "./pages/UnAuthorized"
 import NotFound from "./pages/NotFound"
 import PublicRoute from "./routes/PublicRoute"
@@ -37,6 +38,7 @@ function App() {
             <Route path="category" element={<Category />} />
             <Route path="expense" element={<Expense />} />
             <Route path="monthly-report" element={<MonthlyReports />} />
+            <Route path="profile" element={<Profile />} />
           </Route>
         </Route>
 

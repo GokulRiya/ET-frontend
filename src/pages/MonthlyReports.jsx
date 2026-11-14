@@ -199,7 +199,7 @@ function MonthlyReport() {
                                         <th scope="col" className="py-2.5 px-6">Category</th>
                                         <th scope="col" className="py-2.5 px-6">Type</th>
                                         <th scope="col" className="py-2.5 px-6">Description</th>
-                                        <th scope="col" className="py-2.5 px-6 text-right">Amount (₹)</th>
+                                        <th scope="col" className="py-2.5 px-6 text-right">Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-100">

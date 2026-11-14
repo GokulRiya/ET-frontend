@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import { getExpenses, createExpense, getExpenseById, updateExpense, deleteExpense } from "../services/expenseService"
 import { toast } from 'react-toastify'
-import { FaPlusCircle, FaRupeeSign, FaSearch } from "react-icons/fa"
+import { FaPlusCircle, FaSearch } from "react-icons/fa"
+import { GiTakeMyMoney } from "react-icons/gi";
 import { RiEdit2Fill } from "react-icons/ri"
 import { MdDelete, MdDateRange, MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight } from "react-icons/md"
 import { BsCalendar2MonthFill } from "react-icons/bs"
@@ -316,7 +317,7 @@ function Expense() {
                                 <div>
                                     <label className="mb-1 block text-sm font-medium text-gray-700">Amount</label>
                                     <div className="relative">
-                                        <FaRupeeSign size={18} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                                        <GiTakeMyMoney size={18} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                                         <input
                                             type="number"
                                             inputMode="decimal"
@@ -397,7 +398,7 @@ function Expense() {
                         <thead className="bg-gray-100 dark:bg-slate-800">
                             <tr>
                                 <th scope="col" className="dark:text-gray-300 px-6 py-4">Date</th>
-                                <th scope="col" className="dark:text-gray-300 px-6 py-4">Amount (₹)</th>
+                                <th scope="col" className="dark:text-gray-300 px-6 py-4 text-right">Amount</th>
                                 <th scope="col" className="dark:text-gray-300 px-6 py-4">Category</th>
                                 <th scope="col" className="dark:text-gray-300 px-6 py-4">Type</th>
                                 <th scope="col" className="dark:text-gray-300 px-6 py-4">Description</th>
@@ -423,7 +424,7 @@ function Expense() {
                                         <td className="whitespace-nowrap px-6 py-1.5 font-medium text-slate-900 dark:text-slate-200">
                                             {new Date(value.date).toLocaleDateString()}
                                         </td>
-                                        <td className="whitespace-nowrap px-6 py-1.5 font-semibold text-slate-900 tabular-nums dark:text-slate-200 capitalize">
+                                        <td className="whitespace-nowrap px-6 py-1.5 font-semibold text-slate-900 tabular-nums text-right dark:text-slate-200 capitalize">
                                             {int(value.amount) ? int(value.amount) : "-"}
                                         </td>
                                         <td className="whitespace-nowrap px-6 py-1.5 font-medium text-slate-900 dark:text-slate-200 capitalize">

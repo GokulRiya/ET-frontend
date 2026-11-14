@@ -6,7 +6,7 @@ import { LuArrowLeftRight } from "react-icons/lu";
 import { BiCategoryAlt } from "react-icons/bi";
 import { HiOutlineChartBar } from "react-icons/hi2";
 import { FaSignOutAlt } from "react-icons/fa"
-import { CgMenuRightAlt } from "react-icons/cg"
+import { CgMenuRightAlt, CgProfile } from "react-icons/cg"
 import { useState, useRef, useEffect } from "react"
 
 function Layout() {
@@ -49,6 +49,11 @@ function Layout() {
             name: "Monthly Reports",
             path: "/monthly-report",
             icon: <HiOutlineChartBar />,
+        },
+        {
+            name: "Profile",
+            path: "/profile",
+            icon: <CgProfile />,
         }
     ];
 
@@ -127,7 +132,7 @@ function Layout() {
                             <FaSignOutAlt className="text-lg" />
 
                             <span className="text-sm font-medium">
-                                Logout
+                                Sign out
                             </span>
                         </button>
 
