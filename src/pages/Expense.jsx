@@ -460,7 +460,7 @@ function Expense() {
                             )}
                         </tbody>
                     </table>
-                    {!loading && Expense.length > 0 && (
+                    { Expense.length > 0 && (
                         <div className="flex items-center justify-between border-t border-slate-200 px-4 py-3 text-sm dark:border-slate-800">
                             <span className="text-slate-500">
                                 Showing {(page - 1) * limit + 1}-{Math.min(page * limit, totalExpenses)} of {totalExpenses}
