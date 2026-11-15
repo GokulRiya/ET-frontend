@@ -139,6 +139,10 @@ function Layout() {
                     </div>
                 </div>
 
+                <p className="my-2 text-center text-xs text-gray-600">
+                    © 2026 Expenslytic. All rights reserved.
+                </p>
+
             </aside>
 
 

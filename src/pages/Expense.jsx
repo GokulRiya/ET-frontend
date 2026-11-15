@@ -388,8 +388,8 @@ function Expense() {
                     <table className="w-full min-w-[900px] table-fixed border-collapse text-left text-sm">
                         <colgroup>
                             <col className="w-[120px]" />
-                            <col className="w-[140px]" />
                             <col className="w-[120px]" />
+                            <col className="w-[140px]" />
                             <col className="w-[100px]" />
                             <col className="w-[320px]" />
                             <col className="w-[100px]" />
